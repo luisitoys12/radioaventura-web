@@ -86,6 +86,23 @@
     audio.onerror = () => alert("Radio sin conexión, revise la fuente.");
     $("#volume").on("input", function () { audio.volume = this.value / 100; });
 
+    // Actualización dinámica del artista y la canción
+    function updateSongInfo() {
+      fetch("https://stream.zeno.fm/hgkpljeofe6tv") // Sustituye con la URL de metadatos de tu servidor
+        .then(response => response.json())
+        .then(data => {
+          const artist = data.artist || "Artista Desconocido";
+          const song = data.song || "Canción Desconocida";
+
+          document.querySelector(".placeholder .artist").textContent = artist;
+          document.querySelector(".placeholder .song").textContent = song;
+        })
+        .catch(error => console.error("Error al obtener los datos de metadatos:", error));
+    }
+
+    // Llamar a la función cada 10 segundos
+    setInterval(updateSongInfo, 10000);
+
     // Slider de publicidad
     $(document).ready(function() {
       $('.slider').slick({
