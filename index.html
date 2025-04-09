@@ -23,23 +23,9 @@
       <a href="./"><img src="img/logo.png" alt="RADIO AVENTURA"/></a>
       <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></div>
     <div class="menu">
-      <div class="price"><a href="#">Publicidad</a></div>
-      <div class="app">
-        <a href="https://apps.apple.com/app" target="_blank"><img src="img/apple.svg" alt="Descarga la aplicacion para iPhone"/></a>
-        <a href="https://play.google.com/store/apps" target="_blank"><img src="img/google.svg" alt="Descarga la aplicacion para Android"/></a>
-      </div>
-      <p><b>© Player para Zeno Radio</b> La mejor radio en vivo</p>
-      <div class="social">
-        <ul>
-          <li><a href="https://www.facebook.com" target="facebook" rel="nofollow"><img src="img/facebook.svg"></a></li>
-          <li><a href="https://www.youtube.com" target="youtube" rel="nofollow"><img src="img/youtube.svg"></a></li>
-          <li><a href="https://www.instagram.com" target="instagram" rel="nofollow"><img src="img/instagram.svg"></a></li>
-          <li><a href="https://www.x.com" target="X" rel="nofollow"><img src="img/x.svg"></a></li>
-          <li><a href="https://wa.me" target="whatsapp" rel="nofollow"><img src="img/whatsapp.svg"></a></li>
-        </ul>
-      </div>
-      <a href="/programacion.html" class="menu-link">Programación</a>
-      <a href="https://estacionkusmedios.org" class="menu-link">Nuestro Potenciador</a>
+      <a href="/programacion.html" class="menu-button">Programación</a>
+      <a href="https://estacionkusmedios.org" class="menu-button">Nuestro Potenciador</a>
+      <a href="#" class="menu-button">Publicidad</a> <!-- Botón Publicidad -->
     </div>
   </nav>
 
@@ -90,24 +76,6 @@
     </div>
   </section>
 
-  <footer>
-    <div class="price"><a href="#">Publicidad</a></div>
-    <div class="app">
-      <a href="https://apps.apple.com/app" target="_blank"><img src="img/apple.svg" alt="Descarga la aplicacion para iPhone"/></a>
-      <a href="https://play.google.com/store/apps" target="_blank"><img src="img/google.svg" alt="Descarga la aplicacion para Android"/></a>
-    </div>
-    <p><b>© RADIO AVENTURA JOVEN</b> ESPACIO ONLINE JOVEN</p>
-    <div class="social">
-      <ul>
-        <li><a href="https://www.facebook.com" target="facebook" rel="nofollow"><img src="img/facebook.svg"></a></li>
-        <li><a href="https://www.youtube.com" target="youtube" rel="nofollow"><img src="img/youtube.svg"></a></li>
-        <li><a href="https://www.instagram.com" target="instagram" rel="nofollow"><img src="img/instagram.svg"></a></li>
-        <li><a href="https://www.x.com" target="X" rel="nofollow"><img src="img/x.svg"></a></li>
-        <li><a href="https://wa.me" target="whatsapp" rel="nofollow"><img src="img/whatsapp.svg"></a></li>
-      </ul>
-    </div>
-  </footer>
-
   <script>
     const stream = "https://stream.zeno.fm/hgkpljeofe6tv.acc";
     const audio = new Audio(stream);
@@ -126,6 +94,14 @@
         dots: true,
         arrows: false
       });
+    });
+
+    // Botón Publicidad funcional
+    $(".menu-button").on("click", function(e) {
+      const target = $(this).text();
+      if (target === "Publicidad") {
+        alert("Publicidad: Contáctanos para aparecer aquí.");
+      }
     });
   </script>
 </body>
