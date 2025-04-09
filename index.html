@@ -125,7 +125,7 @@ const PLAYPAUSE = () => audio.paused ? (audio.load(), audio.play()) : audio.paus
 
 audio.onplay  = () => $(".loading, .eq, .play").addClass("on");
 audio.onpause = () => $(".loading, .eq, .play").removeClass("on");
-audio.onerror = () => alert("Radio sin seno falta de pago.");
+audio.onerror = () => alert("Error Radio Aventura estamos resolviendo.");
 $("#volume").on("input", function () {audio.volume = this.value / 100;});
 
 
