@@ -1,116 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="theme-color" content="#000010"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RADIOAVENTURA</title>
-  <meta name="description" content="Player para Zeno Radio"/>
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
-  <link href="css/main.css" rel="stylesheet">
-  
-  <!-- Estilos para el slider y video.js -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async=""></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-</head>
-
-<body>
-  <nav>
-    <div class="nav">
-      <a href="./"><img src="img/logo.png" alt="RADIO AVENTURA"/></a>
-      <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></div>
-    <div class="menu">
-      <div class="price"><a href="#">Publicidad</a></div>
-      <div class="app">
-        <a href="https://apps.apple.com/app" target="_blank"><img src="img/apple.svg" alt="Descarga la aplicacion para iPhone"/></a>
-        <a href="https://play.google.com/store/apps" target="_blank"><img src="img/google.svg" alt="Descarga la aplicacion para Android"/></a>
-      </div>
-      <p><b>© Player para Zeno Radio</b> La mejor radio en vivo</p>
-      <div class="social">
-        <ul>
-          <li><a href="https://www.facebook.com" target="facebook" rel="nofollow"><img src="img/facebook.svg"></a></li>
-          <li><a href="https://www.youtube.com" target="youtube" rel="nofollow"><img src="img/youtube.svg"></a></li>
-          <li><a href="https://www.instagram.com" target="instagram" rel="nofollow"><img src="img/instagram.svg"></a></li>
-          <li><a href="https://www.x.com" target="X" rel="nofollow"><img src="img/x.svg"></a></li>
-          <li><a href="https://wa.me" target="whatsapp" rel="nofollow"><img src="img/whatsapp.svg"></a></li>
-        </ul>
-      </div>
-      <button id="live-button">Ver en Vivo</button> <!-- Botón para abrir el pop-up -->
-    </div>
-  </nav>
-
-  <section>
-    <a href="./"><img class="logo" src="img/logo.png" alt="Player para Zeno Radio"/></a>
-    <div class="title">
-      <div class="placeholder">
-        <span class="artist">Artista</span>
-        <span class="song">Tema</span>
-      </div>
-    </div>
-
-    <div class="cd"><div class="images"><img class="lazyload" src="img/default.jpg" alt="cover o portada"/></div></div>
-    <div class="cent"><a href="https://paypal.com" target="_blank" rel="nofollow">Donar</a></div>
-
-    <div class="controls">
-      <ul class="cols controls">
-        <li>
-          <div onclick="PLAYPAUSE()" class="play">
-            <div class="loading"><img src="img/loading.svg" alt=""/></div>
-            <img src="img/play.svg" alt="">
-            <img src="img/stop.svg" alt="">
-          </div>
-        </li>
-        <li>
-          <div class="volume">
-            <ul class="cols">
-              <li><img src="img/volume0.svg" alt=""></li>
-              <li><input type="range" id="volume" min="0" max="100" value="90"></li>
-              <li><img src="img/volume100.svg" alt=""></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <div class="bg"><img class="lazyload" src="img/default.jpg" alt=""/></div>
-    <div class="eq"><img class="lazyload" src="img/eq.svg" alt=""/></div>
-  </section>
-
-  <!-- Slider de publicidad -->
-  <section id="advertisements">
-    <h2>Publicidad</h2>
-    <div class="slider">
-      <div><img src="publicidad1.jpg" alt="Publicidad 1"></div>
-      <div><img src="publicidad2.jpg" alt="Publicidad 2"></div>
-      <div><img src="publicidad3.jpg" alt="Publicidad 3"></div>
-    </div>
-  </section>
-
-  <!-- Modal para el reproductor HLS -->
-  <div id="live-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000;">
-    <div style="position: relative; width: 80%; margin: 5% auto; background: #fff; padding: 20px; border-radius: 8px;">
-      <span id="close-modal" style="position: absolute; top: 10px; right: 20px; font-size: 20px; cursor: pointer;">&times;</span>
-      <h2>Transmisión en Vivo</h2>
-      <video id="livePlayer" class="video-js vjs-default-skin" controls autoplay width="640" height="360" data-setup='{}'>
-        <source src="URL_DE_TU_ARCHIVO_M3U8" type="application/x-mpegURL">
-        Tu navegador no soporta HLS.
-      </video>
-    </div>
-  </div>
-
-  <footer>
+<nav>
+  <div class="nav">
+    <a href="./"><img src="img/logo.png" alt="RADIO AVENTURA"/></a>
+    <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="menu">
     <div class="price"><a href="#">Publicidad</a></div>
     <div class="app">
       <a href="https://apps.apple.com/app" target="_blank"><img src="img/apple.svg" alt="Descarga la aplicacion para iPhone"/></a>
-      <a href="https://play.google.com/store/apps" target="_blank"><img  src="img/google.svg" alt="Descarga la aplicacion para Android"/></a>
+      <a href="https://play.google.com/store/apps" target="_blank"><img src="img/google.svg" alt="Descarga la aplicacion para Android"/></a>
     </div>
-    <p><b>© RADIO AVENTURA JOVEN</b> ESPACIO ONLINE JOVEN</p>
+    <p><b>© Player para Zeno Radio</b> La mejor radio en vivo</p>
     <div class="social">
       <ul>
         <li><a href="https://www.facebook.com" target="facebook" rel="nofollow"><img src="img/facebook.svg"></a></li>
@@ -120,35 +18,7 @@
         <li><a href="https://wa.me" target="whatsapp" rel="nofollow"><img src="img/whatsapp.svg"></a></li>
       </ul>
     </div>
-  </footer>
-
-  <script>
-    const stream = "https://stream.zeno.fm/hgkpljeofe6tv.acc";
-    const idzeno = "hgkpljeofe6tv";
-
-    // Reproductor
-    window.onload = () => audio.play();
-    const audio = new Audio(stream);
-    const PLAYPAUSE = () => audio.paused ? (audio.load(), audio.play()) : audio.pause();
-
-    audio.onplay = () => $(".loading, .eq, .play").addClass("on");
-    audio.onpause = () => $(".loading, .eq, .play").removeClass("on");
-    audio.onerror = () => alert("Radio sin seno falta de pago.");
-    $("#volume").on("input", function () { audio.volume = this.value / 100; });
-
-    // Slider de publicidad
-    $(document).ready(function() {
-      $('.slider').slick({
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true,
-        arrows: false
-      });
-    });
-
-    // Modal para ver en vivo
-    $("#live-button").click(() => $("#live-modal").fadeIn());
-    $("#close-modal").click(() => $("#live-modal").fadeOut());
-  </script>
-</body>
-</html>
+    <a href="/programacion.html" class="menu-link">Programación</a> <!-- Enlace agregado -->
+     <a href="https://estacionkusmedios.org" class="menu-link">Nuestro Potenciador</a> <!-- Enlace agregado -->
+  </div>
+</nav>
