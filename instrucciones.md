@@ -1,8 +1,10 @@
 # Instrucciones
 
 ## Cambios realizados en esta versión
-- Se corrigió el estilo base de `<section>` para que las secciones dentro de `main` se apilen y no se oculten.
-- Ajuste de estilos para garantizar que MatchFM, plataformas y comunidad se vean completas en web y móvil.
+- Eliminé el enlace a `css/main.css` del menú y limpié textos repetidos para mantener el nuevo diseño.
+- Ajusté los títulos y metadatos base para mostrar `radioaventuramx` como identidad principal.
+- Añadí el reloj de Irapuato con actualización en tiempo real y el logo de Estación Kusmedios.
+- Refiné el copy para mantener una sola línea descriptiva coherente en las tarjetas principales.
 
 ## Requisitos o dependencias nuevas
 - Ninguno.
@@ -13,5 +15,7 @@
 2. Abre el navegador en:
    - `http://localhost:8000`
 3. Verifica:
-   - Que las secciones "Vive la experiencia", plataformas y comunidad se muestren completas.
-   - Que en móvil el contenido se apile sin solaparse.
+   - Que el menú principal funcione y no muestre el enlace a `css/main.css`.
+   - Que los metadatos y títulos base indiquen `radioaventuramx`.
+   - Que el reloj muestre la hora de Irapuato y se actualice cada segundo.
+   - Que el logo de Estación Kusmedios aparezca debajo de las redes.
