@@ -101,7 +101,6 @@ ul.cols.body>li:nth-child(3){vertical-align:bottom}
 section{position:relative;width:100%;height:100%;min-width:100%!important;min-height:100%!important;overflow-x:hidden;background:linear-gradient(140deg,#000010,#000010);overflow-y:scroll;padding-bottom:40vw}
 img.logo{position:absolute;z-index:99;width:10vw;left:3vw;top:3vw;filter:drop-shadow(0 0 2vw rgba(255,255,255,.5))}
 .bg{position:fixed;z-index:1;width:110%;height:110%;left:-5%;top:-5%;filter:blur(20px);-webkit-filter:blur(20px);transition:all .5s linear;background:url(../img/bg.png)}
-
 .bg img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;filter:grayscale(0%)}
 .cd{position:absolute;z-index:10;width:50vh;height:50vh;background:linear-gradient(140deg,#000010,#000010);left:50%;top:50%;transform:translate(-50%,-50%);border-radius:1vw;box-shadow:0px 0px 5vw rgba(0,0,0,.15);overflow:hidden}
 .cd .images{position:absolute;left:0;top:0;width:100%;height:100%}
@@ -168,8 +167,6 @@ footer a[href*="pdf"]:hover{filter:drop-shadow(0 0 .208vw rgba(255,255,255,.7))}
 .social ul li a{background:none!important;padding:.8vw!important;border:1px solid #ffffff;border-radius:100px;display:inline-block!important;width:3vw!important;height:3vw!important;transition:all .2s;line-height:1}
 .social ul li a:hover{filter:drop-shadow(0 0 .208vw #ffffff)}
 .social ul li img{width:100%!important;height:100%!important}
-
-
 nav{display:none}
 .eq{position:absolute;width:100%;z-index:2;top:50%;transform:skew(180deg,180deg) translate(-1vw,-50%);opacity:0;overflow:hidden}
 .eq.on{opacity:.3}
@@ -202,7 +199,10 @@ svg.loading text{font-size:8vw}
 body{background:radial-gradient(circle at top,#1a0f2e 0%,#080611 45%,#05040d 100%);color:var(--cloud);overflow:auto}
 body.off{overflow:hidden}
 section{padding-bottom:0}
+
+/* Fix Conflict 1: Estructura main.layout */
 main.layout section{height:auto;min-height:0;overflow:visible;background:transparent}
+
 .bg{filter:blur(40px);opacity:.35}
 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,145,86,.2),rgba(90,210,255,.1))}
 .layout{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4vw;padding:6vw 6vw 8vw;position:relative;z-index:5}
@@ -239,6 +239,8 @@ footer{position:relative;padding:3vw 6vw 5vw;background:rgba(5,4,13,.8)}
 footer p{font-size:.9vw}
 .social{position:relative;bottom:auto;right:auto;margin-top:1.5vw}
 .social ul li a{border-color:rgba(255,255,255,.5)}
+
+/* Fix Conflict 2: Secciones de MatchFM y Comunidad */
 .matchfm-sections{padding:2vw 6vw 6vw;background:linear-gradient(180deg,rgba(6,6,16,0) 0%,rgba(6,6,16,.7) 100%)}
 .section-header{text-align:center;max-width:60vw;margin:0 auto 3vw}
 .section-header h2{color:var(--cloud);font-size:2.2vw}
@@ -268,6 +270,7 @@ footer p{font-size:.9vw}
 .request-form button{align-self:flex-start;background:var(--sunset);color:#111;border-radius:100px;padding:.8vw 2vw;font-family:"montserrat-bold";text-transform:uppercase;letter-spacing:.1vw;cursor:pointer;transition:all .2s}
 .request-form button:hover{filter:drop-shadow(0 0 .4vw rgba(255,145,86,.6))}
 
+/* Fix Conflict 3: Media Queries unificadas */
 @media only screen and (max-width:1024px){
 .layout{grid-template-columns:1fr;padding:10vw 6vw 12vw}
 img.logo{width:16vw}
@@ -308,6 +311,7 @@ footer p,.made-with{font-size:2.4vw}
 .request-form textarea{min-height:20vw}
 .request-form button{padding:2.4vw 6vw;font-size:2.4vw}
 }
+
 @media only screen and (max-device-width:1024px) and (max-device-height:1366px) and (orientation:portrait){img.logo{width:15vw}
 .title{font-size:4vw;width:70vw}
 .title span.artist{font-size:2vw}
@@ -325,6 +329,7 @@ svg.loading text{font-size:6vw}
 .volume input[type=range]::-webkit-slider-thumb{height:3vw!important;width:3vw!important;margin-top:-1.5vw!important}
 .volume input[type=range]::-webkit-slider-thumb:hover{filter:drop-shadow(0 0 .624vw rgba(255,255,255,.7))}
 }
+
 @media only screen and (max-width:640px) and (orientation:portrait){body{padding-top:14vw}
 body.off{overflow:hidden}
 nav{display:block;position:fixed;top:0;left:0;width:100%;height:19vw;z-index:100;overflow:hidden;transition:all .5s}
@@ -373,7 +378,6 @@ img.logo{display:none}
 svg.loading{top:98vw;height:26vw}
 svg.loading text{font-size:13vw}
 .controls{top:116vw;bottom:auto;height:32vw!important;width:100vw;border-bottom:10vw solid rgba(255,255,255,0)}
-.controls ul.cols.controls li:nth-child(2){display:none!important}
 .controls ul.cols.controls li:nth-child(2){display:none!important}
 .controls .play{margin:0!important}
 .play{width:18vw!important;height:18vw!important;margin-right:4vw!important}
