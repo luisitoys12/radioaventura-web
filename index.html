@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#000010"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estación Kusmedios - Player para Zeno Radio</title>
+    <title>Radio Aventura - Estación Kusmedios</title>
     <meta name="description" content="Player para Zeno Radio"/>
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="Player para Zeno Radio"/>
@@ -18,128 +18,172 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="img/favicon.ico"/>
     <link href="css/main.css" rel="stylesheet">
-    
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async=""></script>
 
     <style>
-        /* Estilos integrados para la sección de comunidad */
-        .community-container {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            color: #fff;
-        }
-        
-        .community-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .community-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-        }
-
+        /* Estilos integrados para la sección de comunidad y validación visual */
         .listener-counter {
             font-size: 2.5em;
             font-weight: bold;
             color: #03dac6;
         }
-
-        .request-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .request-form input, .request-form textarea {
-            padding: 10px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid #444;
-            color: white;
-            border-radius: 4px;
-        }
-
-        .btn-send {
-            background: #6200ee;
-            color: white;
-            border: none;
-            padding: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
         .validation-footer {
             text-align: center;
             padding: 20px;
             font-size: 0.8em;
             opacity: 0.7;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .community-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <nav>
-        <div class="nav">
-            <a href="./"><img src="img/logo.png" alt="Player para Zeno Radio"/></a>
-            <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></span>
+<nav>
+    <div class="nav">
+        <a href="./"><img src="img/logo.png" alt="Player para Radio Aventura"/></a>
+        <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></span>
+    </div>
+    <div class="menu">
+        <div class="price"><a href="#">Publicidad</a></div>
+        <div class="app">
+            <a href="https://estacionkusmedios.org" target="_blank"><img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="App Kusmedios"/></a>
+            <a href="comingsoom" target="_blank"><img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="PROGRAMAS"/></a>
         </div>
-    </nav>
+        <p><b>© RADIO AVENTURA</b> La mejor radio en vivo</p>
+        <p class="made-with">Hecho con amor por estacionkusmedios.</p>
+        <div class="social">
+            <ul>
+                <li><a href="https://www.facebook.com/radioaventurajoven" target="facebook"><img src="img/facebook.svg"></a></li>
+                <li><a href="https://www.youtube.com/radioaventura" target="youtube"><img src="img/youtube.svg"></a></li>
+                <li><a href="https://www.instagram.com/radioaventura" target="instagram"><img src="img/instagram.svg"></a></li>
+                <li><a href="https://www.x.com/radioaventurajoven" target="X"><img src="img/x.svg"></a></li>
+                <li><a href="https://wa.me" target="whatsapp"><img src="img/whatsapp.svg"></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <main>
-        <section class="hero-player" style="text-align: center; padding: 50px 0;">
-            <h2>Hecho con amor por estacionkusmedios.</h2>
-            <div id="zeno-player-container">
-                <p>Cargando reproductor en vivo...</p>
+<div class="bg"><img class="lazyload" src="img/default.jpg" alt=""/></div>
+<div class="eq"><img class="lazyload" src="img/eq.svg" alt=""/></div>
+
+<main class="layout">
+    <header class="hero">
+        <a href="./" class="logo-link"><img class="logo" src="img/logo.png" alt="Logo Radio Aventura"/></a>
+        <div class="hero-copy">
+            <p class="eyebrow">Radio Aventura en vivo</p>
+            <h1>Un concepto original para sentir cada ritmo.</h1>
+            <p class="lead">Una experiencia más cálida, clara y vibrante.</p>
+            <div class="action-bar">
+                <div class="cent"><a href="https://paypal.me/ekusmedios" target="_blank">Donar</a></div>
+                <div class="price"><a href="#">Publicidad</a></div>
             </div>
-        </section>
+            <p class="made-with">Hecho con amor por estacionkusmedios.</p>
+        </div>
+    </header>
 
-        <section class="community-container">
-            <div class="community-grid">
-                
-                <div class="community-card">
-                    <h3>Comunidad en vivo</h3>
-                    <p>Personas escuchando ahora:</p>
-                    <div class="listener-counter" id="listener-count">—</div>
-                </div>
-
-                <div class="community-card">
-                    <h3>Peticiones Musicales</h3>
-                    <form class="request-form" action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain">
-                        <input type="text" name="Nombre" placeholder="Tu nombre" required>
-                        <input type="text" name="Cancion" placeholder="¿Qué canción quieres escuchar?" required>
-                        <textarea name="Mensaje" placeholder="Mensaje adicional"></textarea>
-                        <button type="submit" class="btn-send">Enviar a cabina</button>
-                    </form>
-                </div>
-
+    <section class="player-card">
+        <div class="title">
+            <div class="placeholder">
+                <span class="artist">Artista</span>
+                <span class="song">Tema</span>
             </div>
-        </section>
-    </main>
+        </div>
+        <div class="cd"><div class="images"><img class="lazyload" src="img/default.jpg" alt="cover"/></div></div>
+        <div class="controls">
+            <ul class="cols controls">
+                <li>
+                    <div onclick="PLAYPAUSE()" class="play">
+                        <div class="loading"><img src="img/loading.svg" alt=""/></div>
+                        <img src="img/play.svg" alt="Play">
+                        <img src="img/stop.svg" alt="Stop">
+                    </div>
+                </li>
+                <li>
+                    <div class="volume">
+                        <ul class="cols">
+                            <li><img src="img/volume0.svg" alt=""></li>
+                            <li><input type="range" id="volume" min="0" max="100" value="90"></li>
+                            <li><img src="img/volume100.svg" alt=""></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-    <footer class="validation-footer">
-        <p>Hecho con amor por estacionkusmedios.</p>
-    </footer>
+    <section class="community-section">
+        <div class="section-header">
+            <h2>Comunidad en vivo</h2>
+            <p>Participa con la estación y envía tus peticiones musicales.</p>
+        </div>
+        <div class="community-grid">
+            <article class="community-card">
+                <h3>Oyentes en vivo</h3>
+                <p class="community-metric"><span id="listeners-count">—</span> conectados</p>
+            </article>
+            <article class="community-card">
+                <h3>Peticiones musicales</h3>
+                <form class="request-form" action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain">
+                    <input type="text" name="nombre" placeholder="Tu nombre" required style="width:100%; margin-bottom:10px; padding:10px;">
+                    <textarea name="peticion" rows="4" placeholder="Artista - Canción" required style="width:100%; margin-bottom:10px; padding:10px;"></textarea>
+                    <button type="submit" style="background:#6200ee; color:#fff; border:none; padding:10px 20px; cursor:pointer; border-radius:4px;">Enviar petición</button>
+                </form>
+            </article>
+        </div>
+    </section>
+</main>
 
-    <script>
-        // Lógica para el contador (simulada si la API no está presente)
-        $(document).ready(function() {
-            // Aquí se integraría la llamada a la API de Zeno para obtener listeners reales
-            console.log("Validación visual: El reproductor está listo para interacción.");
+<footer class="validation-footer">
+    <p>Hecho con amor por estacionkusmedios.</p>
+</footer>
+
+<script>
+    const stream = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
+    const idzeno = "7mk2bzwy5x8uv";
+
+    const audio = new Audio(stream);
+    const PLAYPAUSE = () => audio.paused ? (audio.load(), audio.play()) : audio.pause();
+
+    audio.onplay  = () => $(".loading, .eq, .play").addClass("on");
+    audio.onpause = () => $(".loading, .eq, .play").removeClass("on");
+    $("#volume").on("input", function () {audio.volume = this.value / 100;});
+
+    let songNow = "";
+    function fetchMetadata() {
+        $.getJSON(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${idzeno}?ra=${Math.random()}`, data => {
+            const currentSong = data.title || "Radio Aventura";
+            if (currentSong === songNow) return;
+            songNow = currentSong;
+
+            const [artist, song] = currentSong.split(" - ");
+            $(".artist").shuffleLetters({text: artist || "Radio"});
+            $(".song").shuffleLetters({text: song || "Aventura"});
+            
+            const listeners = data.listeners_current ?? data.listenersCount;
+            if (listeners) $("#listeners-count").text(listeners);
+
+            // Búsqueda de Carátula en iTunes
+            $.getJSON(`https://itunes.apple.com/search?term=${encodeURIComponent(artist)}&media=music&limit=1`, coverData => {
+                const image = coverData.results?.[0]?.artworkUrl100.replace("100x100bb", "600x600bb") || "img/default.jpg";
+                const $newCover = $(`<img src="${image}" class="lazyload" />`);
+                $(".images").append($newCover);
+                $(".images").css({ transition: "all 1s", transform: "translateX(-100%)" });
+                setTimeout(() => {
+                    $(".images").removeAttr("style").find("img:first-child").remove();
+                    $(".bg img").attr("src", image);
+                }, 1500);
+            });
         });
-    </script>
+    }
+
+    fetchMetadata();
+    setInterval(fetchMetadata, 15000);
+
+    // Menu toggle
+    $("span.hamburger").click(() => $("span.hamburger, nav, body").toggleClass("on off"));
+
+    // Shuffle Letters Plugin
+    !function(t){t.fn.shuffleLetters=function(n){var a=t.extend({step:8,fps:25,text:"",callback:function(){}},n);return this.each(function(){var n=t(this),r="";if(n.data("animated"))return!0;n.data("animated",!0),r=a.text?a.text.split(""):n.text().split("");for(var i=[],s=[],f=0;f<r.length;f++){var l=r[f];if(" "==l){i[f]="space";continue}/[a-z]/.test(l)?i[f]="lowerLetter":/[A-Z]/.test(l)?i[f]="upperLetter":i[f]="symbol",s.push(f)}n.html(""),function t(f){var l,o=s.length,u=r.slice(0);if(f>o){n.data("animated",!1),a.callback(n);return}for(l=Math.max(f,0);l<o;l++)l<f+a.step?u[s[l]]=e(i[s[l]]):u[s[l]]="";n.text(u.join("")),setTimeout(function(){t(f+1)},1e3/a.fps)}(-a.step)})};function e(t){var e="";"lowerLetter"==t?e="abcdefghijklmnopqrstuvwxyz0123456789":"upperLetter"==t?e="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789":"symbol"==t&&(e=",.?/\\(^)![]{}*&^%$#'\"");var n=e.split("");return n[Math.floor(Math.random()*n.length)]}}(jQuery);
+</script>
 </body>
 </html>
