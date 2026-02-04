@@ -3,26 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#000010"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Radio Aventura - Estación Kusmedios</title>
+    
     <meta name="description" content="Player para Zeno Radio"/>
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="Player para Zeno Radio"/>
-    <meta property="og:url" content="tu url"/>
     <meta property="og:title" content="Player para Zeno Radio"/>
-    <meta property="og:description" content="Player para Zeno Radio"/>
     <meta property="og:image" content="img/og-image.jpg"/>
-    <meta property="og:image:type" content="image/jpeg"/>
-    <meta property="og:image:width" content="600"/>
-    <meta property="og:image:height" content="360"/>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
-    <link rel="apple-touch-icon" href="img/favicon.ico"/>
+    
     <link href="css/main.css" rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async=""></script>
 
     <style>
-        /* Estilos integrados para la sección de comunidad y validación visual */
+        /* --- ESTILOS ADAPTATIVOS (RESPONSIVE) --- */
+        
+        /* Ajustes base para asegurar que nada se desborde */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Bloque para Móviles (Pantallas menores a 768px) */
+        @media only screen and (max-width: 768px) {
+            .layout {
+                display: block !important; /* Cambiamos grid por bloque simple */
+                padding: 15px !important;
+            }
+
+            /* Hero: Ajustamos textos para que no sean gigantes */
+            .hero-copy h1 {
+                font-size: 28px !important;
+                line-height: 1.1 !important;
+                margin-bottom: 15px !important;
+            }
+
+            .hero-copy .lead {
+                font-size: 16px !important;
+                line-height: 1.4 !important;
+            }
+
+            /* Reproductor: Lo centramos y ajustamos el disco */
+            .player-card {
+                width: 100% !important;
+                margin-top: 20px !important;
+                padding: 20px !important;
+                box-sizing: border-box !important;
+            }
+
+            .cd {
+                width: 75vw !important; /* El disco ocupa el 75% del ancho del móvil */
+                height: 75vw !important;
+                margin: 0 auto 20px !important;
+            }
+
+            .title span.song {
+                font-size: 22px !important;
+                white-space: normal !important; /* Permite que el nombre baje de renglón */
+            }
+
+            /* Controles: Play y Volumen más fáciles de tocar */
+            .play {
+                width: 65px !important;
+                height: 65px !important;
+            }
+
+            .volume {
+                width: 100% !important;
+                margin-top: 15px !important;
+            }
+
+            /* Comunidad: Las tarjetas se ponen una debajo de otra */
+            .community-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+
+            .community-card {
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .community-metric {
+                font-size: 35px !important;
+            }
+        }
+
+        /* Estilos adicionales de UI */
         .listener-counter {
             font-size: 2.5em;
             font-weight: bold;
@@ -30,36 +99,34 @@
         }
         .validation-footer {
             text-align: center;
-            padding: 20px;
-            font-size: 0.8em;
-            opacity: 0.7;
+            padding: 30px 20px;
+            font-size: 13px;
+            color: #fff;
+            opacity: 0.8;
+        }
+        .request-form input, .request-form textarea {
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.4);
+            color: #fff;
         }
     </style>
 </head>
 
 <body>
+
 <nav>
     <div class="nav">
-        <a href="./"><img src="img/logo.png" alt="Player para Radio Aventura"/></a>
+        <a href="./"><img src="img/logo.png" alt="Logo Radio Aventura" style="max-height: 50px;"></a>
         <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></span>
     </div>
     <div class="menu">
         <div class="price"><a href="#">Publicidad</a></div>
         <div class="app">
             <a href="https://estacionkusmedios.org" target="_blank"><img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="App Kusmedios"/></a>
-            <a href="comingsoom" target="_blank"><img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="PROGRAMAS"/></a>
         </div>
-        <p><b>© RADIO AVENTURA</b> La mejor radio en vivo</p>
+        <p><b>© RADIO AVENTURA</b></p>
         <p class="made-with">Hecho con amor por estacionkusmedios.</p>
-        <div class="social">
-            <ul>
-                <li><a href="https://www.facebook.com/radioaventurajoven" target="facebook"><img src="img/facebook.svg"></a></li>
-                <li><a href="https://www.youtube.com/radioaventura" target="youtube"><img src="img/youtube.svg"></a></li>
-                <li><a href="https://www.instagram.com/radioaventura" target="instagram"><img src="img/instagram.svg"></a></li>
-                <li><a href="https://www.x.com/radioaventurajoven" target="X"><img src="img/x.svg"></a></li>
-                <li><a href="https://wa.me" target="whatsapp"><img src="img/whatsapp.svg"></a></li>
-            </ul>
-        </div>
     </div>
 </nav>
 
@@ -68,43 +135,40 @@
 
 <main class="layout">
     <header class="hero">
-        <a href="./" class="logo-link"><img class="logo" src="img/logo.png" alt="Logo Radio Aventura"/></a>
         <div class="hero-copy">
             <p class="eyebrow">Radio Aventura en vivo</p>
             <h1>Un concepto original para sentir cada ritmo.</h1>
             <p class="lead">Una experiencia más cálida, clara y vibrante.</p>
             <div class="action-bar">
                 <div class="cent"><a href="https://paypal.me/ekusmedios" target="_blank">Donar</a></div>
-                <div class="price"><a href="#">Publicidad</a></div>
             </div>
-            <p class="made-with">Hecho con amor por estacionkusmedios.</p>
+            <p class="made-with" style="margin-top: 15px;">Hecho con amor por estacionkusmedios.</p>
         </div>
     </header>
 
     <section class="player-card">
         <div class="title">
             <div class="placeholder">
-                <span class="artist">Artista</span>
+                <span class="artist">Artista</span><br>
                 <span class="song">Tema</span>
             </div>
         </div>
-        <div class="cd"><div class="images"><img class="lazyload" src="img/default.jpg" alt="cover"/></div></div>
+        <div class="cd">
+            <div class="images"><img class="lazyload" src="img/default.jpg" alt="cover"/></div>
+        </div>
         <div class="controls">
-            <ul class="cols controls">
+            <ul class="cols controls" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
                 <li>
-                    <div onclick="PLAYPAUSE()" class="play">
-                        <div class="loading"><img src="img/loading.svg" alt=""/></div>
-                        <img src="img/play.svg" alt="Play">
-                        <img src="img/stop.svg" alt="Stop">
+                    <div onclick="PLAYPAUSE()" class="play" style="cursor: pointer;">
+                        <img src="img/play.svg" alt="Play" class="play-btn">
+                        <img src="img/stop.svg" alt="Stop" class="stop-btn" style="display:none;">
                     </div>
                 </li>
-                <li>
-                    <div class="volume">
-                        <ul class="cols">
-                            <li><img src="img/volume0.svg" alt=""></li>
-                            <li><input type="range" id="volume" min="0" max="100" value="90"></li>
-                            <li><img src="img/volume100.svg" alt=""></li>
-                        </ul>
+                <li class="volume">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="img/volume0.svg" style="width: 15px;">
+                        <input type="range" id="volume" min="0" max="100" value="90" style="width: 100%;">
+                        <img src="img/volume100.svg" style="width: 20px;">
                     </div>
                 </li>
             </ul>
@@ -113,20 +177,19 @@
 
     <section class="community-section">
         <div class="section-header">
-            <h2>Comunidad en vivo</h2>
-            <p>Participa con la estación y envía tus peticiones musicales.</p>
+            <h2 style="color: #fff; text-align: center;">Comunidad en vivo</h2>
         </div>
         <div class="community-grid">
-            <article class="community-card">
+            <article class="community-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
                 <h3>Oyentes en vivo</h3>
-                <p class="community-metric"><span id="listeners-count">—</span> conectados</p>
+                <p class="community-metric" style="color: #03dac6;"><span id="listeners-count">—</span> conectados</p>
             </article>
-            <article class="community-card">
+            <article class="community-card" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
                 <h3>Peticiones musicales</h3>
                 <form class="request-form" action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain">
-                    <input type="text" name="nombre" placeholder="Tu nombre" required style="width:100%; margin-bottom:10px; padding:10px;">
-                    <textarea name="peticion" rows="4" placeholder="Artista - Canción" required style="width:100%; margin-bottom:10px; padding:10px;"></textarea>
-                    <button type="submit" style="background:#6200ee; color:#fff; border:none; padding:10px 20px; cursor:pointer; border-radius:4px;">Enviar petición</button>
+                    <input type="text" name="nombre" placeholder="Tu nombre" required style="width:100%; margin-bottom:10px; padding:12px; box-sizing: border-box;">
+                    <textarea name="peticion" rows="3" placeholder="¿Qué canción quieres escuchar?" required style="width:100%; margin-bottom:10px; padding:12px; box-sizing: border-box;"></textarea>
+                    <button type="submit" style="background:#6200ee; color:#fff; border:none; padding:12px; cursor:pointer; border-radius:8px; width: 100%; font-weight: bold;">Enviar petición</button>
                 </form>
             </article>
         </div>
@@ -142,11 +205,22 @@
     const idzeno = "7mk2bzwy5x8uv";
 
     const audio = new Audio(stream);
-    const PLAYPAUSE = () => audio.paused ? (audio.load(), audio.play()) : audio.pause();
+    const PLAYPAUSE = () => {
+        if(audio.paused) {
+            audio.load();
+            audio.play();
+            $(".play-btn").hide();
+            $(".stop-btn").show();
+        } else {
+            audio.pause();
+            $(".play-btn").show();
+            $(".stop-btn").hide();
+        }
+    };
 
     audio.onplay  = () => $(".loading, .eq, .play").addClass("on");
     audio.onpause = () => $(".loading, .eq, .play").removeClass("on");
-    $("#volume").on("input", function () {audio.volume = this.value / 100;});
+    $("#volume").on("input", function () { audio.volume = this.value / 100; });
 
     let songNow = "";
     function fetchMetadata() {
@@ -155,14 +229,17 @@
             if (currentSong === songNow) return;
             songNow = currentSong;
 
-            const [artist, song] = currentSong.split(" - ");
-            $(".artist").shuffleLetters({text: artist || "Radio"});
-            $(".song").shuffleLetters({text: song || "Aventura"});
+            const parts = currentSong.split(" - ");
+            const artist = parts[0] || "Radio";
+            const song = parts[1] || "Aventura";
+
+            $(".artist").shuffleLetters({text: artist});
+            $(".song").shuffleLetters({text: song});
             
             const listeners = data.listeners_current ?? data.listenersCount;
             if (listeners) $("#listeners-count").text(listeners);
 
-            // Búsqueda de Carátula en iTunes
+            // Portada desde iTunes
             $.getJSON(`https://itunes.apple.com/search?term=${encodeURIComponent(artist)}&media=music&limit=1`, coverData => {
                 const image = coverData.results?.[0]?.artworkUrl100.replace("100x100bb", "600x600bb") || "img/default.jpg";
                 const $newCover = $(`<img src="${image}" class="lazyload" />`);
@@ -179,10 +256,10 @@
     fetchMetadata();
     setInterval(fetchMetadata, 15000);
 
-    // Menu toggle
+    // Hamburguesa
     $("span.hamburger").click(() => $("span.hamburger, nav, body").toggleClass("on off"));
 
-    // Shuffle Letters Plugin
+    // Plugin Shuffle Letters
     !function(t){t.fn.shuffleLetters=function(n){var a=t.extend({step:8,fps:25,text:"",callback:function(){}},n);return this.each(function(){var n=t(this),r="";if(n.data("animated"))return!0;n.data("animated",!0),r=a.text?a.text.split(""):n.text().split("");for(var i=[],s=[],f=0;f<r.length;f++){var l=r[f];if(" "==l){i[f]="space";continue}/[a-z]/.test(l)?i[f]="lowerLetter":/[A-Z]/.test(l)?i[f]="upperLetter":i[f]="symbol",s.push(f)}n.html(""),function t(f){var l,o=s.length,u=r.slice(0);if(f>o){n.data("animated",!1),a.callback(n);return}for(l=Math.max(f,0);l<o;l++)l<f+a.step?u[s[l]]=e(i[s[l]]):u[s[l]]="";n.text(u.join("")),setTimeout(function(){t(f+1)},1e3/a.fps)}(-a.step)})};function e(t){var e="";"lowerLetter"==t?e="abcdefghijklmnopqrstuvwxyz0123456789":"upperLetter"==t?e="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789":"symbol"==t&&(e=",.?/\\(^)![]{}*&^%$#'\"");var n=e.split("");return n[Math.floor(Math.random()*n.length)]}}(jQuery);
 </script>
 </body>
