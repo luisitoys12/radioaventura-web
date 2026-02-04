@@ -5,119 +5,94 @@
     <meta name="theme-color" content="#000010"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Radio Aventura - Estación Kusmedios</title>
+    
     <link href="css/main.css" rel="stylesheet">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async=""></script>
 
     <style>
-        /* --- FIX CRÍTICO PARA MÓVIL --- */
+        /* --- ARREGLO INTEGRAL Y RESPONSIVO --- */
+        :root { --accent: #03dac6; --primary: #6200ee; }
+
+        /* Fix para que el menú y el cuerpo no se pierdan */
+        body.off { overflow: hidden; }
+        
+        /* Ajustes para que el reproductor no "vuele" en móvil */
         @media only screen and (max-width: 768px) {
-            /* Detenemos el comportamiento de "volar" del CSS externo */
-            .layout, section, .player-card, .controls, .title, .cd {
+            .layout { 
+                display: block !important; 
+                position: relative !important; 
+                padding: 70px 20px 20px !important; 
+            }
+            .hero, .player-card, .community-section {
                 position: relative !important;
-                left: auto !important;
-                top: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                transform: none !important;
                 width: 100% !important;
-                height: auto !important;
-                display: block !important;
+                left: 0 !important;
+                top: 0 !important;
+                transform: none !important;
+                margin-bottom: 30px !important;
+            }
+            .cd {
+                width: 260px !important;
+                height: 260px !important;
                 margin: 0 auto !important;
             }
-
-            body {
-                overflow-y: auto !important;
-                height: auto !important;
-                padding-top: 60px !important; /* Espacio para el nav fijo */
-            }
-
-            .layout {
-                padding: 15px !important;
-                box-sizing: border-box !important;
-            }
-
-            /* El disco (CD) ahora se queda en su sitio */
-            .cd {
-                width: 280px !important;
-                height: 280px !important;
-                margin: 20px auto !important;
-                border-radius: 15px !important;
-                overflow: hidden !important;
-                display: flex !important;
-                justify-content: center !important;
-            }
-
-            .cd .images img {
-                width: 100% !important;
-                height: 100% !important;
-                object-fit: cover !important;
-            }
-
-            /* Botón de Play: Evitamos que flote */
-            .controls {
-                margin-top: 20px !important;
-                text-align: center !important;
-            }
-
-            .controls ul.cols.controls {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 20px !important;
-            }
-
-            .play {
-                width: 80px !important;
-                height: 80px !important;
-                background: rgba(255,255,255,0.1) !important;
-                border-radius: 50% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-            }
-
-            .play img {
-                width: 50px !important;
-                height: 50px !important;
-            }
-
-            /* Textos */
-            .title {
-                text-align: center !important;
-                margin-bottom: 10px !important;
-            }
-
-            .title span.song {
-                font-size: 24px !important;
-                display: block !important;
-                color: #fff !important;
-            }
-
-            .hero-copy h1 {
-                font-size: 26px !important;
-                text-align: center !important;
-            }
+            .controls { position: relative !important; width: 100% !important; bottom: 0 !important; }
+            .controls ul.cols.controls { display: flex !important; flex-direction: column; align-items: center; gap: 15px; }
             
-            /* Ocultar elementos que causan ruido visual en móvil */
-            .bg {
-                opacity: 0.4 !important;
-            }
+            /* Menú móvil fix */
+            nav.on .menu { transform: translateY(0%) !important; visibility: visible !important; opacity: 1 !important; }
+            img.logo { display: block !important; width: 120px !important; position: relative !important; left: 0 !important; top: 0 !important; }
         }
 
-        /* Estilo para los botones de play/stop dentro del div */
-        .play-btn, .stop-btn {
-            position: relative !important;
+        /* Sección de Noticias de Irapuato */
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .news-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 0;
+            text-decoration: none;
             display: block;
+            transition: 0.3s;
+        }
+        .news-item:hover { background: rgba(255,255,255,0.05); }
+        .news-item h4 { color: var(--accent); font-size: 14px; margin-bottom: 5px; }
+        .news-item p { color: #ccc; font-size: 12px; margin: 0; }
+
+        /* Grid de comunidad a 3 columnas en PC, 1 en móvil */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
+
 <nav>
     <div class="nav">
-        <a href="./"><img src="img/logo.png" alt="Logo" style="height: 40px; margin: 10px;"></a>
-        <span class="hamburger"><span></span><span></span><span></span><span></span><span></span></span>
+        <a href="./"><img src="img/logo.png" alt="Logo Radio Aventura" id="main-logo"></a>
+        <span class="hamburger" id="nav-toggle"><span></span><span></span><span></span><span></span><span></span></span>
+    </div>
+    <div class="menu">
+        <div class="price"><a href="#" class="open-popup">Publicidad</a></div>
+        <div class="app">
+            <a href="https://estacionkusmedios.org" target="_blank"><img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="App"/></a>
+        </div>
+        <p><b>© RADIO AVENTURA</b></p>
+        <p class="made-with">Hecho con amor por estacionkusmedios.</p>
+        <div class="social">
+            <ul>
+                <li><a href="https://www.facebook.com/radioaventurajoven" target="_blank"><img src="img/facebook.svg"></a></li>
+                <li><a href="https://wa.me/4622461396" target="_blank"><img src="img/whatsapp.svg"></a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -127,99 +102,138 @@
     <header class="hero">
         <div class="hero-copy">
             <p class="eyebrow">Radio Aventura en vivo</p>
-            <h1>Siente cada ritmo</h1>
-            <p class="made-with">Hecho con amor por estacionkusmedios.</p>
+            <h1>Siente cada ritmo desde Irapuato</h1>
+            <div class="action-bar" style="display: flex; gap: 10px; margin-top: 15px;">
+                <div class="cent"><a href="https://paypal.me/ekusmedios" target="_blank" style="background: var(--primary); padding: 10px 20px; border-radius: 50px; text-decoration: none; color: #fff;">Donar</a></div>
+                <div class="price"><a href="#" class="open-popup" style="background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px; text-decoration: none; color: #fff;">Publicidad</a></div>
+            </div>
+            <p class="made-with" style="margin-top: 20px;">Hecho con amor por estacionkusmedios.</p>
         </div>
     </header>
 
     <section class="player-card">
         <div class="title">
-            <span class="artist" style="font-size: 14px; text-transform: uppercase; opacity: 0.7;">Artista</span><br>
-            <span class="song">Cargando...</span>
+            <span class="artist" id="artist-name">RADIO AVENTURA</span><br>
+            <span class="song" id="song-name">CONECTANDO...</span>
         </div>
-
         <div class="cd">
-            <div class="images"><img class="lazyload" src="img/default.jpg" alt="cover"/></div>
+            <div class="images" id="cover-art"><img class="lazyload" src="img/default.jpg" alt="cover"/></div>
         </div>
-
         <div class="controls">
             <ul class="cols controls">
                 <li>
-                    <div onclick="PLAYPAUSE()" class="play">
-                        <img src="img/play.svg" alt="Play" class="play-btn">
-                        <img src="img/stop.svg" alt="Stop" class="stop-btn" style="display:none;">
+                    <div onclick="PLAYPAUSE()" class="play" style="cursor: pointer; background: rgba(255,255,255,0.1); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <img src="img/play.svg" id="btn-play" style="width: 40px;">
+                        <img src="img/stop.svg" id="btn-stop" style="width: 40px; display: none;">
                     </div>
                 </li>
-                <li style="width: 100%; max-width: 300px;">
-                    <div class="volume">
-                        <input type="range" id="volume" min="0" max="100" value="90" style="width: 100%;">
-                    </div>
+                <li style="width: 100%; max-width: 250px;">
+                    <input type="range" id="volume" min="0" max="100" value="90" style="width: 100%;">
                 </li>
             </ul>
         </div>
     </section>
 
-    <section class="community-section" style="margin-top: 40px;">
-        <div class="community-grid" style="display: flex; flex-direction: column; gap: 20px;">
-            <article class="community-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; text-align: center;">
-                <h3>Oyentes: <span id="listeners-count" style="color: #03dac6;">—</span></h3>
+    <section class="community-section">
+        <div class="community-grid">
+            <article class="community-card news-card">
+                <h3>En Vivo</h3>
+                <p class="community-metric" style="font-size: 30px; color: var(--accent);"><span id="listeners-count">0</span> oyentes</p>
+                <p style="font-size: 12px; opacity: 0.6;">Sintonizando ahora la mejor señal.</p>
             </article>
-            <article class="community-card" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px;">
-                <form action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain">
-                    <input type="text" name="nombre" placeholder="Tu nombre" required style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none;">
-                    <textarea name="peticion" placeholder="Tu canción..." required style="width:100%; padding:10px; border-radius:5px; border:none;"></textarea>
-                    <button type="submit" style="width:100%; padding:12px; background:#6200ee; color:#fff; border:none; border-radius:5px; margin-top:10px; font-weight:bold;">ENVIAR PETICIÓN</button>
+
+            <article class="community-card news-card">
+                <h3>Irapuato Noticias</h3>
+                <div id="news-container">
+                    <p style="font-size: 12px;">Cargando titulares de Guanajuato...</p>
+                </div>
+            </article>
+
+            <article class="community-card news-card">
+                <h3>Peticiones</h3>
+                <form action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain" style="display: flex; flex-direction: column; gap: 8px;">
+                    <input type="text" name="nombre" placeholder="Tu nombre" required style="padding: 8px; border-radius: 5px; border: none; background: rgba(0,0,0,0.3); color: #fff;">
+                    <textarea name="peticion" placeholder="¿Qué quieres escuchar?" required style="padding: 8px; border-radius: 5px; border: none; background: rgba(0,0,0,0.3); color: #fff; height: 60px;"></textarea>
+                    <button type="submit" style="background: var(--accent); color: #000; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">ENVIAR A CABINA</button>
                 </form>
             </article>
         </div>
     </section>
 </main>
 
-<footer class="validation-footer">
-    <p>Hecho con amor por estacionkusmedios.</p>
-</footer>
+<span class="close"></span>
+<div class="popup">
+    <img class="price" src="https://i.imgur.com/4blBRmZ.png" alt="Publicidad"/>
+</div>
 
 <script>
     const stream = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
     const idzeno = "7mk2bzwy5x8uv";
     const audio = new Audio(stream);
 
+    // Reproductor FIX
     function PLAYPAUSE() {
         if (audio.paused) {
             audio.load();
             audio.play();
-            $(".play-btn").hide();
-            $(".stop-btn").show();
+            $("#btn-play").hide();
+            $("#btn-stop").show();
+            $(".eq").addClass("on");
         } else {
             audio.pause();
-            $(".play-btn").show();
-            $(".stop-btn").hide();
+            $("#btn-play").show();
+            $("#btn-stop").hide();
+            $(".eq").removeClass("on");
         }
     }
 
     $("#volume").on("input", function() { audio.volume = this.value / 100; });
 
-    let songNow = "";
-    function fetchMetadata() {
-        $.getJSON(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${idzeno}?ra=${Math.random()}`, data => {
-            const currentSong = data.title || "Radio Aventura";
-            if (currentSong === songNow) return;
-            songNow = currentSong;
-            const parts = currentSong.split(" - ");
-            $(".artist").text(parts[0] || "Radio");
-            $(".song").text(parts[1] || "Aventura");
-            $("#listeners-count").text(data.listeners_current || "—");
+    // Menu y Popup FIX
+    $("#nav-toggle").click(function() {
+        $("nav").toggleClass("on");
+        $("body").toggleClass("off");
+        $(this).toggleClass("on");
+    });
 
-            $.getJSON(`https://itunes.apple.com/search?term=${encodeURIComponent(parts[0])}&limit=1`, coverData => {
-                const image = coverData.results?.[0]?.artworkUrl100.replace("100x100bb", "600x600bb") || "img/default.jpg";
-                $(".images img, .bg img").attr("src", image);
-            });
+    $(".open-popup").click(function(e) {
+        e.preventDefault();
+        $(".popup, .close").addClass("on");
+    });
+
+    $(".close").click(function() {
+        $(".popup, .close").removeClass("on");
+    });
+
+    // Metadata y Noticias
+    function updateData() {
+        // Metadata
+        $.getJSON(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${idzeno}?ra=${Math.random()}`, data => {
+            if(data.title) {
+                const parts = data.title.split(" - ");
+                $("#artist-name").text(parts[0]);
+                $("#song-name").text(parts[1] || "");
+            }
+            $("#listeners-count").text(data.listeners_current || "0");
         });
+
+        // Simulación de Noticias Locales (Irapuato)
+        // Nota: En un entorno real, usarías un proxy para leer RSS de portales como Periódico Correo o AM
+        const localNews = [
+            { t: "Clima en Irapuato", d: "Se esperan tardes soleadas en la ciudad fresera." },
+            { t: "Cultura Irapuato", d: "Nuevos eventos en el Teatro de la Ciudad." },
+            { t: "Deportes Guanajuato", d: "Seguimiento a los atletas locales en competencia." }
+        ];
+        
+        let newsHtml = "";
+        localNews.forEach(n => {
+            newsHtml += `<a href="#" class="news-item"><h4>${n.t}</h4><p>${n.d}</p></a>`;
+        });
+        $("#news-container").html(newsHtml);
     }
 
-    fetchMetadata();
-    setInterval(fetchMetadata, 15000);
-    $("span.hamburger").click(() => $("nav, body").toggleClass("on off"));
+    updateData();
+    setInterval(updateData, 20000);
 </script>
 </body>
 </html>
