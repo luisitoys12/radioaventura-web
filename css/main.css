@@ -238,7 +238,6 @@ footer{position:relative;padding:3vw 6vw 5vw;background:rgba(5,4,13,.8)}
 footer p{font-size:.9vw}
 .social{position:relative;bottom:auto;right:auto;margin-top:1.5vw}
 .social ul li a{border-color:rgba(255,255,255,.5)}
-
 @media only screen and (max-width:1024px){
 .layout{grid-template-columns:1fr;padding:10vw 6vw 12vw}
 img.logo{width:16vw}
