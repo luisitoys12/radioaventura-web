@@ -1,8 +1,10 @@
 # Instrucciones
 
 ## Cambios realizados en esta versión
-- Se corrigió el estilo base de `<section>` para que las secciones dentro de `main` se apilen y no se oculten.
-- Ajuste de estilos para garantizar que MatchFM, plataformas y comunidad se vean completas en web y móvil.
+- Rediseño completo de la UI con tarjetas claras, tipografía y layout inspirado en la nueva referencia visual.
+- Nuevo header con navegación funcional y menú móvil responsivo.
+- Se reorganizaron las secciones para mostrar cover, metadatos y reproductor con estilos actualizados.
+- Ajuste de estilos para noticias, comunidad y formulario de peticiones en el nuevo tema claro.
 
 ## Requisitos o dependencias nuevas
 - Ninguno.
@@ -13,5 +15,7 @@
 2. Abre el navegador en:
    - `http://localhost:8000`
 3. Verifica:
-   - Que las secciones "Vive la experiencia", plataformas y comunidad se muestren completas.
-   - Que en móvil el contenido se apile sin solaparse.
+   - Que el menú principal y el menú móvil funcionen correctamente.
+   - Que el cover y los metadatos se muestren en las tarjetas superiores.
+   - Que el reproductor inicie/detenga la reproducción y el volumen responda.
+   - Que la sección de comunidad, noticias y peticiones mantenga el estilo del nuevo layout.
