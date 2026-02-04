@@ -1,8 +1,8 @@
 # Instrucciones
 
 ## Cambios realizados en esta versión
-- Ajustes finos en la sección de plataformas para evitar conflictos de estilos reportados en GitHub.
-- Refinados tamaños y espaciados de logos para desktop y mobile.
+- Corrección estructural del HTML para cerrar correctamente el `<main>` y la sección de contenido antes del footer.
+- Revisión general para evitar conflictos de marcado reportados en el repositorio.
 
 ## Requisitos o dependencias nuevas
 - Ninguno.
@@ -13,5 +13,5 @@
 2. Abre el navegador en:
    - `http://localhost:8000`
 3. Verifica:
-   - Que los logos de TuneIn y Radioline mantengan proporciones correctas.
-   - Que la sección de plataformas se vea alineada en desktop y mobile.
+   - Que las secciones principales y el footer se rendericen sin saltos ni solapes.
+   - Que la navegación, reproductor y secciones informativas se vean completas.
