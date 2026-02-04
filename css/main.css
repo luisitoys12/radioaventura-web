@@ -196,6 +196,66 @@ svg.loading text{font-size:8vw}
 .volume input[type=range]::-webkit-slider-thumb{height:3vw!important;width:3vw!important;margin-top:-1.5vw!important}
 .volume input[type=range]::-webkit-slider-thumb:hover{filter:drop-shadow(0 0 .624vw rgba(255,255,255,.7))}
 }
+
+/* Nuevo concepto visual */
+:root{--midnight:#05040d;--wine:#2a0f2b;--sunset:#ff9156;--sky:#5ad2ff;--cloud:#f9f7f2;--glass:rgba(14,14,24,.75)}
+body{background:radial-gradient(circle at top,#1a0f2e 0%,#080611 45%,#05040d 100%);color:var(--cloud);overflow:auto}
+body.off{overflow:hidden}
+section{padding-bottom:0}
+.bg{filter:blur(40px);opacity:.35}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,145,86,.2),rgba(90,210,255,.1))}
+.layout{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4vw;padding:6vw 6vw 8vw;position:relative;z-index:5}
+.hero{display:flex;flex-direction:column;gap:2vw}
+.logo-link{width:max-content}
+img.logo{position:relative;width:8vw;left:auto;top:auto;filter:drop-shadow(0 0 1.2vw rgba(255,255,255,.25))}
+.hero-copy{background:var(--glass);border-radius:2vw;padding:3vw;box-shadow:0 1.5vw 4vw rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08)}
+.hero-copy h1{color:var(--cloud);font-size:2.8vw;letter-spacing:-.05vw;margin:1vw 0 1.5vw}
+.hero-copy p{color:rgba(255,255,255,.78);font-size:1vw;line-height:1.8}
+.hero-copy p.lead{font-size:1.1vw}
+.hero-copy .eyebrow{font-size:.8vw;letter-spacing:.3vw;text-transform:uppercase;color:var(--sky);margin:0}
+.action-bar{display:flex;flex-wrap:wrap;gap:1vw;margin:2vw 0}
+.cent,.price{position:relative;left:auto;right:auto;top:auto;bottom:auto;z-index:auto}
+.cent a,.price a{font-size:1vw;padding:.9vw 1.6vw .9vw 3.4vw;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:var(--cloud);transition:all .2s}
+.cent a:hover,.price a:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.cent a:before{background-image:url(../img/coin.gif)}
+.price a:before{background-image:url(../img/price.gif)}
+.made-with{font-size:.9vw;margin:1vw 0 0;color:rgba(255,255,255,.7)}
+.menu .made-with{margin:1vw 0 0}
+.player-card{background:rgba(6,6,16,.72);border-radius:2vw;padding:3vw;box-shadow:0 2vw 5vw rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;gap:2.5vw}
+.title{position:relative;left:auto;top:auto;transform:none;width:100%;height:auto;text-align:center}
+.title span.artist{font-size:.9vw;letter-spacing:.22vw}
+.title span.song{font-size:1.8vw;margin-top:.6vw}
+.cd{position:relative;width:26vw;height:26vw;left:auto;top:auto;transform:none;border-radius:1.6vw;background:linear-gradient(160deg,#140d2e,#2a0f2b)}
+.controls{position:relative;left:auto;bottom:auto;transform:none;width:100%;height:auto}
+.controls ul.cols.controls{position:relative;top:auto;left:auto;transform:none}
+.play{width:4.5vw!important;height:4.5vw!important;margin-right:1.5vw}
+.volume{width:30vw}
+.volume input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--sunset),var(--sky))}
+.volume input[type=range]::-webkit-slider-thumb{background:var(--cloud);border:.1vw solid rgba(255,255,255,.6)}
+.volume input[type=range]::-moz-range-track{background:linear-gradient(90deg,var(--sunset),var(--sky))}
+.eq{opacity:.15}
+footer{position:relative;padding:3vw 6vw 5vw;background:rgba(5,4,13,.8)}
+footer p{font-size:.9vw}
+.social{position:relative;bottom:auto;right:auto;margin-top:1.5vw}
+.social ul li a{border-color:rgba(255,255,255,.5)}
+
+@media only screen and (max-width:1024px){
+.layout{grid-template-columns:1fr;padding:10vw 6vw 12vw}
+img.logo{width:16vw}
+.hero-copy h1{font-size:6vw}
+.hero-copy p,.hero-copy p.lead{font-size:3vw}
+.hero-copy .eyebrow{font-size:2vw}
+.cent a,.price a{font-size:3vw;padding:2vw 3vw 2vw 10vw}
+.cent a:before,.price a:before{width:7vw;height:7vw}
+.player-card{padding:6vw;border-radius:4vw}
+.title span.song{font-size:4.5vw}
+.title span.artist{font-size:2.3vw}
+.cd{width:60vw;height:60vw;border-radius:4vw}
+.play{width:12vw!important;height:12vw!important}
+.volume{width:60vw}
+footer p,.made-with{font-size:2.4vw}
+.social ul li a{width:12vw!important;height:12vw!important}
+}
 @media only screen and (max-device-width:1024px) and (max-device-height:1366px) and (orientation:portrait){img.logo{width:15vw}
 .title{font-size:4vw;width:70vw}
 .title span.artist{font-size:2vw}
