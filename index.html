@@ -4,32 +4,7 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#f0f2f5"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Radio Aventura - Estación Kusmedios</title>
-
-    <link href="css/main.css" rel="stylesheet">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async=""></script>
-</head>
-
-<body>
-<nav class="site-nav">
-    <div class="nav-left">
-        <a href="./" class="brand">
-            <img src="img/logo.png" alt="Logo Radio Aventura">
-            <span class="brand-text">
-                <span class="brand-name">Radio Aventura</span>
-                <span class="brand-subtitle">Estación Kusmedios</span>
-            </span>
-        </a>
-    </div>
-    <button class="hamburger" id="nav-toggle" aria-label="Abrir menú">
-        <span></span><span></span><span></span><span></span><span></span>
-    </button>
-    <div class="menu" aria-label="Menú principal">
-        <a href="#inicio">Inicio</a>
-        <a href="#publicidad" class="open-popup">Publicidad</a>
-        <a href="#contacto">Contacto</a>
-        <a href="css/main.css" target="_blank" rel="noreferrer">css/main.css</a>
+    <title>radioaventuramx</title>
     </div>
 </nav>
 
@@ -39,8 +14,7 @@
             <img class="lazyload" id="cover-art" src="img/default.jpg" alt="Portada actual de Radio Aventura"/>
         </div>
         <div class="media-meta">
-            <p class="eyebrow">Radio Aventura en vivo</p>
-            <h2 class="media-title" id="artist-name">RADIO AVENTURA</h2>
+            <h2 class="media-title" id="artist-name">radioaventuramx</h2>
             <p class="media-subtitle" id="song-name">CONECTANDO...</p>
             <p class="media-description">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
             <a class="media-link" href="https://estacionkusmedios.org" target="_blank" rel="noreferrer">https://estacionkusmedios.org</a>
@@ -55,24 +29,29 @@
                     <img src="img/whatsapp.svg" alt="WhatsApp">
                 </a>
             </div>
+            <div class="station-logo">
+                <img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="Logo Estación Kusmedios">
+            </div>
         </div>
     </section>
 
     <section class="card hero-card">
-        <p class="eyebrow">Radio Aventura en vivo</p>
         <h1>Siente cada ritmo desde Irapuato</h1>
-        <p class="hero-subtitle">Una experiencia más cálida, clara y vibrante.</p>
+        <p class="hero-subtitle">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
         <div class="chip-row">
             <a class="chip primary" href="https://paypal.me/ekusmedios" target="_blank" rel="noreferrer">Donar</a>
             <button class="chip ghost open-popup" type="button">Publicidad</button>
             <a class="chip" href="#publicidad">Contacto</a>
         </div>
+        <div class="clock-card">
+            <span class="clock-label">Horario aventurero · Irapuato</span>
+            <span class="clock-time" id="irapuato-clock">00:00:00</span>
+        </div>
     </section>
 
     <section class="card highlight-card">
-        <p class="eyebrow">Radio Aventura en vivo</p>
         <h2>Siente cada ritmo desde Irapuato</h2>
-        <p class="hero-subtitle">Historias reales, cobertura local y el soundtrack perfecto para tu día.</p>
+        <p class="hero-subtitle">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
         <div class="chip-row">
             <span class="chip">Centro</span>
             <span class="chip">Precio</span>
@@ -84,8 +63,8 @@
     <section class="card player-card" id="publicidad">
         <div class="player-header">
             <div class="title">
-                <span class="label">Title</span>
-                <span class="artist" id="artist-name-secondary">RADIO AVENTURA</span>
+                <span class="label">radioaventuramx</span>
+                <span class="artist" id="artist-name-secondary">radioaventuramx</span>
                 <span class="song" id="song-name-secondary">CONECTANDO...</span>
             </div>
             <div class="player-cover">
@@ -109,7 +88,7 @@
             <article class="community-card">
                 <h3>En Vivo</h3>
                 <p class="community-metric"><span id="listeners-count">0</span> oyentes</p>
-                <p class="community-note">Sintonizando ahora la mejor señal.</p>
+                <p class="community-note">En vivo ahora.</p>
             </article>
 
             <article class="community-card">
@@ -201,6 +180,19 @@
 
     updateData();
     setInterval(updateData, 20000);
+
+    function updateClock() {
+        const formatter = new Intl.DateTimeFormat("es-MX", {
+            timeZone: "America/Mexico_City",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+        $("#irapuato-clock").text(formatter.format(new Date()));
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
 </script>
 </body>
 </html>
