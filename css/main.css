@@ -64,6 +64,7 @@ ul {
     list-style: none;
 }
 
+/* --- NAVEGACIÓN --- */
 .site-nav {
     position: sticky;
     top: 0;
@@ -137,6 +138,7 @@ ul {
     transition: var(--transition);
 }
 
+/* --- LAYOUT Y CARDS --- */
 .layout {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -199,6 +201,14 @@ ul {
     font-weight: 600;
 }
 
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
 .hero-card h1 {
     font-family: "montserrat-bold";
     font-size: clamp(1.8rem, 4vw, 2.6rem);
@@ -210,6 +220,7 @@ ul {
     margin-bottom: 1.5rem;
 }
 
+/* --- CLOCK COMPONENT --- */
 .clock-card {
     margin-top: 1.5rem;
     padding: 1rem 1.5rem;
@@ -234,6 +245,7 @@ ul {
     font-size: 1.5rem;
 }
 
+/* --- CHIPS Y PLAYER --- */
 .chip-row {
     display: flex;
     flex-wrap: wrap;
@@ -262,12 +274,6 @@ ul {
 .chip.ghost {
     background: transparent;
     border: 1px solid var(--text-primary);
-}
-
-.highlight-card h2 {
-    font-family: "montserrat-bold";
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
 }
 
 .player-card {
@@ -369,6 +375,7 @@ input[type=range]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
+/* --- COMUNIDAD Y NOTICIAS --- */
 .community-section {
     grid-column: 1 / -1;
 }
@@ -473,6 +480,7 @@ input[type=range]::-webkit-slider-thumb {
     margin-top: 1.2rem;
 }
 
+/* --- POPUPS --- */
 .popup {
     position: fixed;
     inset: 0;
@@ -509,6 +517,7 @@ input[type=range]::-webkit-slider-thumb {
     visibility: visible;
 }
 
+/* --- MEDIA QUERIES --- */
 @media (max-width: 900px) {
     .media-card {
         grid-template-columns: 1fr;
