@@ -199,14 +199,6 @@ ul {
     font-weight: 600;
 }
 
-.eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-}
-
 .hero-card h1 {
     font-family: "montserrat-bold";
     font-size: clamp(1.8rem, 4vw, 2.6rem);

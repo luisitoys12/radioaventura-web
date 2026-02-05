@@ -1,10 +1,9 @@
 # Instrucciones
 
 ## Cambios realizados en esta versión
-- Eliminé el enlace a `css/main.css` del menú y limpié textos repetidos para mantener el nuevo diseño.
-- Ajusté los títulos y metadatos base para mostrar `radioaventuramx` como identidad principal.
-- Añadí el reloj de Irapuato con actualización en tiempo real y el logo de Estación Kusmedios.
-- Refiné el copy para mantener una sola línea descriptiva coherente en las tarjetas principales.
+- Eliminé estilos no usados y afiné microcopy de la tarjeta de comunidad para mantener el diseño limpio.
+- Ajusté el markup para mantener la estructura HTML consistente.
+- Mantuve la identidad `radioaventuramx`, el reloj de Irapuato y el layout claro sin texto redundante.
 
 ## Requisitos o dependencias nuevas
 - Ninguno.
@@ -14,8 +13,9 @@
    - `python -m http.server 8000`
 2. Abre el navegador en:
    - `http://localhost:8000`
-3. Verifica:
-   - Que el menú principal funcione y no muestre el enlace a `css/main.css`.
-   - Que los metadatos y títulos base indiquen `radioaventuramx`.
+3. (Opcional) Valida el HTML con htmlhint:
+   - `npx htmlhint index.html`
+4. Verifica:
+   - Que el menú principal funcione correctamente.
    - Que el reloj muestre la hora de Irapuato y se actualice cada segundo.
-   - Que el logo de Estación Kusmedios aparezca debajo de las redes.
+   - Que la tarjeta de comunidad muestre el estado "En vivo ahora".
