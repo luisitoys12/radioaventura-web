@@ -4,80 +4,93 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#f0f2f5"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>radioaventuramx</title>
+    <title>Radio Aventura MX | Siente el ritmo</title>
+    
+    <link rel="stylesheet" href="css/main.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async></script>
+</head>
+
+<body>
+
+<nav class="site-nav">
+    <div class="brand">
+        <img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="Logo">
+        <div class="brand-text">
+            <span class="brand-name">RADIO AVENTURA</span>
+            <span class="brand-subtitle">Estación Kusmedios</span>
+        </div>
     </div>
+
+    <div class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#publicidad">Reproductor</a>
+        <a href="#contacto">Contacto</a>
+        <button class="chip primary open-popup" style="margin-left:10px; cursor:pointer">Publicidad</button>
+    </div>
+
+    <button class="hamburger" id="nav-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
 
 <main class="layout" id="inicio">
     <section class="card media-card">
         <div class="media-cover">
-            <img class="lazyload" id="cover-art" src="img/default.jpg" alt="Portada actual de Radio Aventura"/>
+            <img class="lazyload" id="cover-art" src="img/default.jpg" alt="Portada actual">
         </div>
         <div class="media-meta">
+            <span class="eyebrow">Ahora suena</span>
             <h2 class="media-title" id="artist-name">radioaventuramx</h2>
             <p class="media-subtitle" id="song-name">CONECTANDO...</p>
-            <p class="media-description">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
-            <a class="media-link" href="https://estacionkusmedios.org" target="_blank" rel="noreferrer">https://estacionkusmedios.org</a>
-            <div class="chip-row">
-                <a class="chip" href="img/default.jpg" target="_blank" rel="noreferrer">Ver imagen</a>
-            </div>
-            <div class="social" aria-label="Redes sociales">
-                <a href="https://www.facebook.com/radioaventurajoven" target="_blank" rel="noreferrer">
-                    <img src="img/facebook.svg" alt="Facebook">
+            <p class="media-description">La mejor vibra fresera y la señal que conecta contigo todos los días desde Irapuato.</p>
+            <a class="media-link" href="https://estacionkusmedios.org" target="_blank">https://estacionkusmedios.org</a>
+            
+            <div class="social" style="margin-top: 15px;">
+                <a href="https://www.facebook.com/radioaventurajoven" target="_blank" style="margin-right: 15px;">
+                    <img src="img/facebook.svg" alt="Facebook" width="24">
                 </a>
-                <a href="https://wa.me/4622461396" target="_blank" rel="noreferrer">
-                    <img src="img/whatsapp.svg" alt="WhatsApp">
+                <a href="https://wa.me/4622461396" target="_blank">
+                    <img src="img/whatsapp.svg" alt="WhatsApp" width="24">
                 </a>
-            </div>
-            <div class="station-logo">
-                <img src="https://lirp.cdn-website.com/b6481524/dms3rep/multi/opt/e+medios+opuesto-154w.png" alt="Logo Estación Kusmedios">
             </div>
         </div>
     </section>
 
     <section class="card hero-card">
         <h1>Siente cada ritmo desde Irapuato</h1>
-        <p class="hero-subtitle">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
+        <p class="hero-subtitle">La señal que mueve a la ciudad de las fresas.</p>
         <div class="chip-row">
-            <a class="chip primary" href="https://paypal.me/ekusmedios" target="_blank" rel="noreferrer">Donar</a>
-            <button class="chip ghost open-popup" type="button">Publicidad</button>
-            <a class="chip" href="#publicidad">Contacto</a>
+            <a class="chip primary" href="https://paypal.me/ekusmedios" target="_blank">Donar</a>
+            <button class="chip ghost open-popup">Anúnciate</button>
         </div>
         <div class="clock-card">
-            <span class="clock-label">Horario aventurero · Irapuato</span>
+            <span class="clock-label">Horario Irapuato, Gto.</span>
             <span class="clock-time" id="irapuato-clock">00:00:00</span>
         </div>
-    </section>
-
-    <section class="card highlight-card">
-        <h2>Siente cada ritmo desde Irapuato</h2>
-        <p class="hero-subtitle">La mejor vibra fresera y la señal que conecta contigo todos los días.</p>
-        <div class="chip-row">
-            <span class="chip">Centro</span>
-            <span class="chip">Precio</span>
-            <span class="chip">Publicidad</span>
-        </div>
-        <p class="made-with">© RADIO AVENTURA · Hecho con amor por estacionkusmedios.</p>
     </section>
 
     <section class="card player-card" id="publicidad">
         <div class="player-header">
             <div class="title">
-                <span class="label">radioaventuramx</span>
+                <span class="label">Señal en vivo</span>
                 <span class="artist" id="artist-name-secondary">radioaventuramx</span>
                 <span class="song" id="song-name-secondary">CONECTANDO...</span>
             </div>
             <div class="player-cover">
-                <img class="lazyload" src="img/default.jpg" alt="Portada de reproducción">
+                <img class="lazyload" src="img/default.jpg" alt="Miniatura">
             </div>
         </div>
         <div class="player-controls">
-            <button onclick="PLAYPAUSE()" class="play" aria-label="Play/Pausa">
-                <img src="img/play.svg" id="btn-play" alt="Reproducir">
-                <img src="img/stop.svg" id="btn-stop" alt="Detener">
+            <button onclick="PLAYPAUSE()" class="play">
+                <img src="img/play.svg" id="btn-play" alt="Play">
+                <img src="img/stop.svg" id="btn-stop" alt="Stop" style="display:none;">
             </button>
             <div class="volume">
-                <label for="volume">Volumen</label>
+                <label>Volumen</label>
                 <input type="range" id="volume" min="0" max="100" value="90">
             </div>
         </div>
@@ -86,24 +99,23 @@
     <section class="community-section" id="contacto">
         <div class="community-grid">
             <article class="community-card">
-                <h3>En Vivo</h3>
-                <p class="community-metric"><span id="listeners-count">0</span> oyentes</p>
-                <p class="community-note">En vivo ahora.</p>
+                <h3>Audiencia</h3>
+                <p class="community-metric"><span id="listeners-count">0</span></p>
+                <p class="community-note">Oyentes en sintonía ahora.</p>
             </article>
 
             <article class="community-card">
-                <h3>Irapuato Noticias</h3>
+                <h3>Noticias Irapuato</h3>
                 <div id="news-container">
-                    <p class="community-note">Cargando titulares de Guanajuato...</p>
+                    <p class="community-note">Cargando titulares locales...</p>
                 </div>
-                <a class="chip" href="img/default.jpg" target="_blank" rel="noreferrer">Ver imagen</a>
             </article>
 
             <article class="community-card">
                 <h3>Peticiones</h3>
                 <form class="request-form" action="mailto:cushmediagroup@gmail.com" method="post" enctype="text/plain">
                     <input type="text" name="nombre" placeholder="Tu nombre" required>
-                    <textarea name="peticion" placeholder="¿Qué quieres escuchar?" required></textarea>
+                    <textarea name="peticion" placeholder="¿Qué canción quieres escuchar?" required></textarea>
                     <button type="submit">ENVIAR A CABINA</button>
                 </form>
             </article>
@@ -111,9 +123,9 @@
     </section>
 </main>
 
-<span class="close"></span>
+<div class="close"></div>
 <div class="popup">
-    <img class="price" src="https://i.imgur.com/4blBRmZ.png" alt="Publicidad"/>
+    <img src="https://i.imgur.com/4blBRmZ.png" alt="Publicidad">
 </div>
 
 <script>
@@ -138,12 +150,13 @@
         audio.volume = this.value / 100;
     });
 
+    // Menú móvil
     $("#nav-toggle").click(function() {
-        $("nav").toggleClass("on");
+        $(".site-nav").toggleClass("on");
         $("body").toggleClass("off");
-        $(this).toggleClass("on");
     });
 
+    // Popups
     $(".open-popup").click(function(e) {
         e.preventDefault();
         $(".popup, .close").addClass("on");
@@ -153,46 +166,54 @@
         $(".popup, .close").removeClass("on");
     });
 
+    // Datos y Noticias
     function updateData() {
         $.getJSON(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${idzeno}?ra=${Math.random()}`, data => {
             if (data.title) {
                 const parts = data.title.split(" - ");
-                $("#artist-name").text(parts[0]);
-                $("#song-name").text(parts[1] || "");
-                $("#artist-name-secondary").text(parts[0]);
-                $("#song-name-secondary").text(parts[1] || "");
+                const artist = parts[0] || "Radio Aventura";
+                const song = parts[1] || "Siente el ritmo";
+                
+                $("#artist-name, #artist-name-secondary").text(artist);
+                $("#song-name, #song-name-secondary").text(song);
             }
             $("#listeners-count").text(data.listeners_current || "0");
         });
 
         const localNews = [
-            { t: "Clima en Irapuato", d: "Se esperan tardes soleadas en la ciudad fresera." },
-            { t: "Cultura Irapuato", d: "Nuevos eventos en el Teatro de la Ciudad." },
-            { t: "Deportes Guanajuato", d: "Seguimiento a los atletas locales en competencia." }
+            { t: "Clima en Irapuato", d: "Tardes soleadas en la ciudad fresera." },
+            { t: "Teatro de la Ciudad", d: "Nueva cartelera cultural disponible." },
+            { t: "Tráfico local", d: "Circulación fluida en avenidas principales." }
         ];
 
         let newsHtml = "";
         localNews.forEach(n => {
-            newsHtml += `<a href="#" class="news-item"><h4>${n.t}</h4><p>${n.d}</p></a>`;
+            newsHtml += `<div class="news-item"><h4>${n.t}</h4><p>${n.d}</p></div>`;
         });
         $("#news-container").html(newsHtml);
     }
 
-    updateData();
-    setInterval(updateData, 20000);
-
+    // Reloj MX
     function updateClock() {
-        const formatter = new Intl.DateTimeFormat("es-MX", {
-            timeZone: "America/Mexico_City",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
+        const now = new Date();
+        const time = now.toLocaleTimeString("es-MX", { 
+            timeZone: "America/Mexico_City", 
+            hour12: false 
         });
-        $("#irapuato-clock").text(formatter.format(new Date()));
+        $("#irapuato-clock").text(time);
     }
 
+    updateData();
     updateClock();
+    setInterval(updateData, 20000);
     setInterval(updateClock, 1000);
+
+    // Cerrar menú al hacer clic en un enlace (móvil)
+    $(".menu a").click(function() {
+        $(".site-nav").removeClass("on");
+        $("body").removeClass("off");
+    });
 </script>
+
 </body>
 </html>
