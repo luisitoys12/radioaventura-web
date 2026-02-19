@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproductor Web Pro</title>
+<style>
+    /* ===== CONFIGURACIÓN DE COLOR AQUÍ ===== */
+    :root {
+        --brand-color: #ff3b3b; /* Cambia el color principal aquí */
+        --bg-dark: #0a0a0a;
+        --text-light: #ffffff;
+        --text-muted: #b3b3b3;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    #bg-blur {
+        position: absolute;
+        top: -10%; left: -10%; width: 120%; height: 120%;
+        background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
+        filter: blur(40px) brightness(0.3);
+        z-index: -1;
+        transition: background-image 1s ease-in-out;
+    }
+
+    .player-container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 30px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+
+    .artwork {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 16px;
+        background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        margin-bottom: 25px;
+        transition: background-image 0.5s ease;
+    }
+
+    .status-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--brand-color);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        border: 1px solid var(--brand-color);
+    }
+
+    .metadata { margin-bottom: 25px; }
+    .title { font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .artist { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+
+    .controls-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    
+    .play-btn {
+        background: var(--brand-color);
+        border: none;
+        width: 65px; height: 65px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex; justify-content: center; align-items: center;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        transition: transform 0.2s;
+    }
+    .play-btn:hover { transform: scale(1.05); }
+    .play-btn svg { width: 24px; height: 24px; fill: white; }
+
+    .volume-slider { flex-grow: 1; display: flex; align-items: center; gap: 10px; }
+    .volume-slider input {
+        width: 100%; height: 6px;
+        -webkit-appearance: none;
+        background: rgba(255,255,255,0.2);
+        border-radius: 5px; outline: none;
+    }
+    .volume-slider input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px; height: 16px;
+        border-radius: 50%;
+        background: var(--brand-color);
+        cursor: pointer;
+    }
+
+    .footer-stats {
+        margin-top: 25px;
+        display: flex; justify-content: center; align-items: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 15px;
+        font-size: 0.85rem; color: var(--text-muted);
+    }
+</style>
+</head>
+<body>
+
+<div id="bg-blur"></div>
+
+<div class="player-container">
+    <div class="artwork" id="cover"></div>
+    <div class="status-badge">● En Vivo</div>
+    
+    <div class="metadata">
+        <div class="title" id="song">Conectando...</div>
+        <div class="artist" id="artist">Cargando Emisora</div>
+    </div>
+
+    <div class="controls-wrapper">
+        <button class="play-btn" id="playPauseBtn">
+            <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        
+        <div class="volume-slider">
+            <svg viewBox="0 0 24 24" width="18" fill="#aaa"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            <input type="range" id="volume" min="0" max="100" value="90">
+        </div>
+    </div>
+
+    <div class="footer-stats">
+        <span>Oyentes conectados: <strong id="listeners" style="color:#fff;">0</strong></span>
+    </div>
+</div>
+
+<script>
+    /* ===== CONFIGURACIÓN DEL CLIENTE AQUÍ ===== */
+    const STREAM_URL = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
+    const ZENO_ID = "7mk2bzwy5x8uv";
+    const NOMBRE_RADIO_DEFAULT = "Radio Aventura MX";
+    /* ========================================== */
+    
+    const audio = new Audio(STREAM_URL);
+    audio.volume = 0.9;
+    audio.preload = "none";
+
+    const playBtn = document.getElementById('playPauseBtn');
+    const iconPlay = document.getElementById('icon-play');
+    const iconPause = document.getElementById('icon-pause');
+    const volSlider = document.getElementById('volume');
+    const coverEl = document.getElementById('cover');
+    const bgBlurEl = document.getElementById('bg-blur');
+
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+        } else {
+            audio.pause();
+            iconPlay.style.display = 'block';
+            iconPause.style.display = 'none';
+        }
+    });
+
+    volSlider.addEventListener('input', (e) => {
+        audio.volume = e.target.value / 100;
+    });
+
+    audio.addEventListener('ended', () => setTimeout(() => audio.play(), 3000));
+    audio.addEventListener('error', () => setTimeout(() => audio.play(), 3000));
+
+    async function updateMetadata() {
+        try {
+            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${ZENO_ID}?ra=${Date.now()}`);
+            const data = await res.json();
+            
+            if (data.title) {
+                const parts = data.title.split(" - ");
+                const artist = parts[0] || NOMBRE_RADIO_DEFAULT;
+                const song = parts[1] || "Transmisión en vivo";
+                
+                document.getElementById("artist").textContent = artist;
+                document.getElementById("song").textContent = song;
+
+                const query = encodeURIComponent(`${artist} ${song}`);
+                const itunesRes = await fetch(`https://itunes.apple.com/search?term=${query}&media=music&limit=1`);
+                const itunesData = await itunesRes.json();
+                
+                if (itunesData.results && itunesData.results.length > 0) {
+                    const imgUrl = itunesData.results[0].artworkUrl100.replace("100x100", "500x500");
+                    coverEl.style.backgroundImage = `url('${imgUrl}')`;
+                    bgBlurEl.style.backgroundImage = `url('${imgUrl}')`;
+                }
+            }
+            document.getElementById("listeners").textContent = data.listeners_current || 0;
+        } catch (err) {}
+    }
+
+    updateMetadata();
+    setInterval(updateMetadata, 15000);
+</script>
+</body>
+</html>
