@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Aventura MX</title>
+
+<!-- JQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<meta name="theme-color" content="#ff3b3b">
+
+<style>
+:root{
+    --main:#ff3b3b;
+    --bg:#0f0f0f;
+    --card:#1b1b1b;
+    --text:#fff;
+    --muted:#aaa;
+}
+body{
+    margin:0;
+    background:var(--bg);
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
+}
+.player{
+    max-width:420px;
+    margin:20px auto;
+    background:var(--card);
+    border-radius:22px;
+    padding:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.7);
+}
+.cover{
+    width:100%;
+    height:220px;
+    border-radius:16px;
+    background:url("https://i.imgur.com/0Z8FQ0g.jpg") center/cover no-repeat;
+    margin-bottom:15px;
+}
+.label{
+    font-size:12px;
+    color:var(--muted);
+}
+.artist{
+    font-size:18px;
+    font-weight:bold;
+}
+.song{
+    font-size:14px;
+    color:#ddd;
+}
+.equalizer{
+    display:none;
+    justify-content:center;
+    margin:15px 0;
+}
+.bar{
+    width:6px;
+    height:10px;
+    background:var(--main);
+    margin:0 3px;
+    animation:beat 1s infinite ease-in-out;
+}
+.bar:nth-child(2){animation-delay:.2s}
+.bar:nth-child(3){animation-delay:.4s}
+.bar:nth-child(4){animation-delay:.6s}
+@keyframes beat{
+    0%,100%{height:10px}
+    50%{height:30px}
+}
+.controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:10px;
+}
+.play{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:var(--main);
+    border:none;
+    cursor:pointer;
+}
+.play img{
+    width:28px;
+}
+.volume{
+    width:60%;
+}
+input[type=range]{width:100%}
+.stats{
+    margin-top:10px;
+    text-align:center;
+    font-size:14px;
+    color:var(--muted);
+}
+.social{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+.social img{
+    width:28px;
+    filter:invert(1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+    <div class="cover" id="cover"></div>
+
+    <span class="label">EN VIVO</span>
+    <div class="artist" id="artist">Radio Aventura MX</div>
+    <div class="song" id="song">Conectando...</div>
+
+    <div class="equalizer" id="eq">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <div class="controls">
+        <button class="play" onclick="PLAYPAUSE()">
+            <img id="play" src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
+            <img id="stop" src="https://cdn-icons-png.flaticon.com/512/727/727218.png" style="display:none;">
+        </button>
+        <div class="volume">
+            <input type="range" id="volume" min="0" max="100" value="90">
+        </div>
+    </div>
+
+    <div class="stats">
+        Oyentes en vivo: <b id="listeners">0</b>
+    </div>
+
+    <div class="social">
+        <a href="https://wa.me/4622461396" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+        </a>
+        <a href="https://www.facebook.com/radioaventurajoven" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+        </a>
+    </div>
+
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const stream = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
+const idzeno = "7mk2bzwy5x8uv";
+
+/* ===== AUDIO ===== */
+const audio = new Audio(stream);
+audio.volume = 0.9;
+audio.preload = "none";
+
+/* Autoplay legal (primer click) */
+document.body.addEventListener("click", ()=>{
+    audio.play().catch(()=>{});
+},{once:true});
+
+function PLAYPAUSE(){
+    if(audio.paused){
+        audio.play();
+        $("#play").hide();
+        $("#stop").show();
+        $("#eq").fadeIn();
+    }else{
+        audio.pause();
+        $("#play").show();
+        $("#stop").hide();
+        $("#eq").fadeOut();
+    }
+}
+
+$("#volume").on("input",()=>{
+    audio.volume = $("#volume").val()/100;
+});
+
+/* Reconexión automática */
+audio.onerror = audio.onended = ()=>{
+    setTimeout(()=>audio.play(),3000);
+};
+
+/* ===== PORTADA REAL ===== */
+function updateCover(artist,song){
+    let q = encodeURIComponent(artist+" "+song);
+    fetch("https://itunes.apple.com/search?term="+q+"&media=music&limit=1")
+    .then(r=>r.json())
+    .then(d=>{
+        if(d.results && d.results[0]){
+            document.getElementById("cover").style.backgroundImage =
+            "url("+d.results[0].artworkUrl100.replace("100x100","500x500")+")";
+        }
+    });
+}
+
+/* ===== METADATA ZENO ===== */
+function update(){
+    $.getJSON(
+        "https://zenoplay.zenomedia.com/api/zenofm/nowplaying/"+idzeno+"?ra="+Math.random(),
+        d=>{
+            if(d.title){
+                let p=d.title.split(" - ");
+                let artist=p[0]||"Radio Aventura MX";
+                let song=p[1]||"Siente el Ritmo";
+                $("#artist").text(artist);
+                $("#song").text(song);
+                updateCover(artist,song);
+            }
+            $("#listeners").text(d.listeners_current||0);
+        }
+    );
+}
+update();
+setInterval(update,20000);
+</script>
+
+</body>
+</html>
