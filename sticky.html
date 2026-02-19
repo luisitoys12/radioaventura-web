@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reproductor Fijo Web</title>
+<style>
+    /* ===== CONFIGURACIÓN DE COLOR AQUÍ ===== */
+    :root {
+        --sticky-brand: #ff3b3b;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+        /* Fondo transparente para que funcione bien dentro del Iframe */
+        background: transparent; 
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .sticky-radio-player {
+        width: 100%;
+        height: 100vh; /* Ocupa todo el alto del iframe */
+        background: rgba(18, 18, 18, 0.90);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        color: white;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .sticky-info { display: flex; align-items: center; gap: 15px; width: 30%; min-width: 200px; }
+    .sticky-cover {
+        width: 55px; height: 55px;
+        border-radius: 8px;
+        background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .sticky-text { display: flex; flex-direction: column; overflow: hidden; }
+    .sticky-song { font-size: 1rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sticky-artist { font-size: 0.85rem; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
+    .sticky-controls { display: flex; align-items: center; justify-content: center; flex-grow: 1; }
+    .sticky-play {
+        background: var(--sticky-brand);
+        border: none; width: 50px; height: 50px; border-radius: 50%;
+        cursor: pointer; display: flex; justify-content: center; align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+    }
+    .sticky-play:hover { transform: scale(1.05); }
+    .sticky-play svg { width: 22px; fill: white; }
+    
+    .sticky-tools { display: flex; align-items: center; gap: 15px; width: 30%; justify-content: flex-end; }
+    .sticky-vol { width: 100px; cursor: pointer; accent-color: var(--sticky-brand); }
+    .sticky-badge { border: 1px solid var(--sticky-brand); color: var(--sticky-brand); font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; font-weight: bold; letter-spacing: 1px;}
+
+    @media(max-width: 768px){
+        .sticky-tools { display: none; }
+        .sticky-info { width: 60%; }
+        .sticky-controls { justify-content: flex-end; }
+        .sticky-cover { width: 45px; height: 45px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="sticky-radio-player">
+    <div class="sticky-info">
+        <div class="sticky-cover" id="s-cover"></div>
+        <div class="sticky-text">
+            <span class="sticky-song" id="s-song">Conectando...</span>
+            <span class="sticky-artist" id="s-artist">Cargando Emisora</span>
+        </div>
+    </div>
+
+    <div class="sticky-controls">
+        <button class="sticky-play" id="s-playBtn">
+            <svg id="s-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="s-icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+    </div>
+
+    <div class="sticky-tools">
+        <span class="sticky-badge">EN VIVO</span>
+        <svg viewBox="0 0 24 24" width="20" fill="#aaa"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" class="sticky-vol" id="s-volume" min="0" max="100" value="90">
+    </div>
+</div>
+
+<script>
+    /* ===== CONFIGURACIÓN DEL CLIENTE AQUÍ ===== */
+    const S_STREAM_URL = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
+    const S_ZENO_ID = "7mk2bzwy5x8uv";
+    const S_NOMBRE_RADIO_DEFAULT = "Radio Aventura MX";
+    /* ========================================== */
+
+    const s_audio = new Audio(S_STREAM_URL);
+    s_audio.volume = 0.9;
+    s_audio.preload = "none";
+
+    const playBtn = document.getElementById('s-playBtn');
+    const iconPlay = document.getElementById('s-icon-play');
+    const iconPause = document.getElementById('s-icon-pause');
+
+    playBtn.addEventListener('click', () => {
+        if (s_audio.paused) {
+            s_audio.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+        } else {
+            s_audio.pause();
+            iconPlay.style.display = 'block';
+            iconPause.style.display = 'none';
+        }
+    });
+
+    document.getElementById('s-volume').addEventListener('input', (e) => {
+        s_audio.volume = e.target.value / 100;
+    });
+
+    async function updateStickyMeta() {
+        try {
+            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${S_ZENO_ID}?ra=${Date.now()}`);
+            const data = await res.json();
+            if (data.title) {
+                const parts = data.title.split(" - ");
+                const artist = parts[0] || S_NOMBRE_RADIO_DEFAULT;
+                const song = parts[1] || "Transmisión en vivo";
+                
+                document.getElementById("s-artist").textContent = artist;
+                document.getElementById("s-song").textContent = song;
+
+                const q = encodeURIComponent(`${artist} ${song}`);
+                const itunesRes = await fetch(`https://itunes.apple.com/search?term=${q}&media=music&limit=1`);
+                const itunesData = await itunesRes.json();
+                if (itunesData.results && itunesData.results[0]) {
+                    const imgUrl = itunesData.results[0].artworkUrl100;
+                    document.getElementById("s-cover").style.backgroundImage = `url('${imgUrl}')`;
+                }
+            }
+        } catch(e) {}
+    }
+    
+    updateStickyMeta();
+    setInterval(updateStickyMeta, 15000);
+</script>
+</body>
+</html>
