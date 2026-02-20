@@ -3,129 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reproductor Web Pro</title>
+<title>Reproductor Web Premium - Radio Aventura MX</title>
 <style>
-    /* ===== CONFIGURACIÓN DE COLOR AQUÍ ===== */
+    /* ===== ESTILOS BASE ===== */
     :root {
-        --brand-color: #ff3b3b; /* Cambia el color principal aquí */
+        --brand-color: #ff3b3b;
+        --brand-glow: rgba(255, 59, 59, 0.5);
         --bg-dark: #0a0a0a;
         --text-light: #ffffff;
-        --text-muted: #b3b3b3;
+        --text-muted: #a0a0a0;
     }
     
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
     
     body {
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background-color: var(--bg-dark);
-        color: var(--text-light);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        overflow: hidden;
+        background-color: var(--bg-dark); color: var(--text-light);
+        display: flex; justify-content: center; align-items: center;
+        min-height: 100vh; overflow: hidden;
     }
 
     #bg-blur {
-        position: absolute;
-        top: -10%; left: -10%; width: 120%; height: 120%;
+        position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
         background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
-        filter: blur(40px) brightness(0.3);
-        z-index: -1;
-        transition: background-image 1s ease-in-out;
+        filter: blur(50px) brightness(0.3); z-index: -1;
+        transition: background-image 1.5s ease-in-out;
     }
 
     .player-container {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 30px;
-        width: 100%;
-        max-width: 400px;
-        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        background: rgba(20, 20, 20, 0.4);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 30px; padding: 35px; width: 100%; max-width: 420px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
         text-align: center;
+        animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .artwork {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        border-radius: 16px;
-        background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        margin-bottom: 25px;
-        transition: background-image 0.5s ease;
+    @keyframes fadeUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
+
+    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
 
     .status-badge {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--brand-color);
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 15px;
-        border: 1px solid var(--brand-color);
+        display: flex; align-items: center; gap: 8px;
+        background: rgba(255, 255, 255, 0.05); color: var(--text-light);
+        padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+        letter-spacing: 1px; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .metadata { margin-bottom: 25px; }
-    .title { font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .artist { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+    .dot {
+        width: 8px; height: 8px; background: var(--brand-color); border-radius: 50%;
+        box-shadow: 0 0 10px var(--brand-glow); animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse { 0% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.2); } }
+
+    .share-btn {
+        background: transparent; border: none; cursor: pointer;
+        padding: 8px; border-radius: 50%; transition: background 0.3s;
+    }
+    .share-btn:hover { background: rgba(255,255,255,0.1); }
+    .share-btn svg { width: 20px; fill: var(--text-light); }
+
+    .artwork {
+        width: 100%; aspect-ratio: 1 / 1; border-radius: 20px;
+        background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-bottom: 25px;
+        transition: background-image 0.8s ease, transform 0.5s ease;
+    }
+    .playing .artwork { transform: scale(1.02); box-shadow: 0 20px 45px var(--brand-glow); }
+
+    /* Ecualizador */
+    .visualizer { display: flex; justify-content: center; gap: 4px; height: 20px; margin-bottom: 20px; opacity: 0; transition: opacity 0.3s; }
+    .playing .visualizer { opacity: 1; }
+    .bar { width: 4px; background: var(--brand-color); border-radius: 4px; animation: eq 1s ease-in-out infinite alternate; }
+    .bar:nth-child(2) { animation-delay: 0.2s; } .bar:nth-child(3) { animation-delay: 0.4s; } .bar:nth-child(4) { animation-delay: 0.1s; } .bar:nth-child(5) { animation-delay: 0.3s; }
+    @keyframes eq { 0% { height: 4px; } 100% { height: 20px; } }
+
+    .metadata { margin-bottom: 20px; }
+    .title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .artist { font-size: 1.05rem; color: var(--text-muted); font-weight: 500; }
+
+    /* Botones Contacto */
+    .contact-buttons { display: flex; gap: 10px; margin-bottom: 25px; }
+    .btn-wsp {
+        flex: 1; background: #25D366; color: white; text-decoration: none; padding: 12px;
+        border-radius: 12px; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center;
+        justify-content: center; gap: 8px; transition: 0.2s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    .btn-wsp:hover { transform: scale(1.03); }
+    .btn-social {
+        background: rgba(255,255,255,0.1); padding: 12px 18px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center; transition: 0.2s;
+    }
+    .btn-social:hover { background: var(--brand-color); }
 
     .controls-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
     
     .play-btn {
-        background: var(--brand-color);
-        border: none;
-        width: 65px; height: 65px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex; justify-content: center; align-items: center;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-        transition: transform 0.2s;
+        background: var(--brand-color); border: none; width: 75px; height: 75px;
+        border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center;
+        box-shadow: 0 10px 30px var(--brand-glow); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .play-btn:hover { transform: scale(1.05); }
-    .play-btn svg { width: 24px; height: 24px; fill: white; }
+    .play-btn:hover { transform: scale(1.1); }
+    .play-btn:active { transform: scale(0.95); }
+    .play-btn svg { width: 28px; height: 28px; fill: white; margin-left: 4px; transition: 0.2s; }
+    .playing .play-btn svg { margin-left: 0; }
 
-    .volume-slider { flex-grow: 1; display: flex; align-items: center; gap: 10px; }
-    .volume-slider input {
-        width: 100%; height: 6px;
-        -webkit-appearance: none;
-        background: rgba(255,255,255,0.2);
-        border-radius: 5px; outline: none;
-    }
-    .volume-slider input::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 16px; height: 16px;
-        border-radius: 50%;
-        background: var(--brand-color);
-        cursor: pointer;
-    }
+    .volume-slider { flex-grow: 1; display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.2); padding: 12px 18px; border-radius: 20px; }
+    .volume-slider input { width: 100%; height: 5px; -webkit-appearance: none; background: rgba(255,255,255,0.15); border-radius: 5px; outline: none; transition: 0.3s; }
+    .volume-slider input::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--text-light); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.5); transition: 0.2s; }
+    .volume-slider input::-webkit-slider-thumb:hover { transform: scale(1.2); background: var(--brand-color); }
 
-    .footer-stats {
-        margin-top: 25px;
-        display: flex; justify-content: center; align-items: center;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 15px;
-        font-size: 0.85rem; color: var(--text-muted);
-    }
+    .footer-stats { margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: center; align-items: center; gap: 10px; }
 </style>
 </head>
 <body>
 
 <div id="bg-blur"></div>
 
-<div class="player-container">
+<div class="player-container" id="player-card">
+    <div class="header-bar">
+        <div class="status-badge"><div class="dot"></div> En Vivo</div>
+        <button class="share-btn" onclick="shareRadio()" title="Compartir Emisora">
+            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+        </button>
+    </div>
+
     <div class="artwork" id="cover"></div>
-    <div class="status-badge">● En Vivo</div>
     
+    <div class="visualizer">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
     <div class="metadata">
         <div class="title" id="song">Conectando...</div>
         <div class="artist" id="artist">Cargando Emisora</div>
+    </div>
+
+    <div class="contact-buttons">
+        <a href="#" target="_blank" class="btn-wsp" id="link-wsp">
+            <svg viewBox="0 0 24 24" width="20" fill="white"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+            Pedir Canción
+        </a>
+        <a href="#" target="_blank" class="btn-social" id="link-fb">
+            <svg viewBox="0 0 24 24" width="20" fill="white"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+        </a>
     </div>
 
     <div class="controls-wrapper">
@@ -135,61 +160,72 @@
         </button>
         
         <div class="volume-slider">
-            <svg viewBox="0 0 24 24" width="18" fill="#aaa"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            <svg viewBox="0 0 24 24" width="20" fill="#a0a0a0"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
             <input type="range" id="volume" min="0" max="100" value="90">
         </div>
     </div>
 
     <div class="footer-stats">
-        <span>Oyentes conectados: <strong id="listeners" style="color:#fff;">0</strong></span>
+        <svg viewBox="0 0 24 24" width="16" fill="var(--brand-color)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span><strong id="listeners" style="color:#fff;">0</strong> Oyentes en vivo</span>
     </div>
 </div>
 
 <script>
-    /* ===== CONFIGURACIÓN DEL CLIENTE AQUÍ ===== */
-    const STREAM_URL = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
-    const ZENO_ID = "7mk2bzwy5x8uv";
-    const NOMBRE_RADIO_DEFAULT = "Radio Aventura MX";
-    /* ========================================== */
+    /* ===== CONFIGURACIÓN DEL CLIENTE (EDITA ESTO) ===== */
+    const CONFIG = {
+        streamUrl: "https://stream.zeno.fm/7mk2bzwy5x8uv.aac",
+        zenoId: "7mk2bzwy5x8uv",
+        nombreRadio: "Radio Aventura MX",
+        whatsapp: "4622461396",
+        facebook: "https://www.facebook.com/radioaventurajoven"
+    };
+    /* ================================================== */
     
-    const audio = new Audio(STREAM_URL);
-    audio.volume = 0.9;
-    audio.preload = "none";
+    // Aplicar Configuración a Botones
+    document.getElementById('link-fb').href = CONFIG.facebook;
+    const msg = encodeURIComponent(`¡Hola! Estoy escuchando ${CONFIG.nombreRadio} y quiero pedir una canción 🎶`);
+    document.getElementById('link-wsp').href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
 
+    const audio = new Audio(CONFIG.streamUrl);
+    audio.volume = 0.9;
+    
     const playBtn = document.getElementById('playPauseBtn');
     const iconPlay = document.getElementById('icon-play');
     const iconPause = document.getElementById('icon-pause');
-    const volSlider = document.getElementById('volume');
-    const coverEl = document.getElementById('cover');
-    const bgBlurEl = document.getElementById('bg-blur');
+    const playerCard = document.getElementById('player-card');
 
     playBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
+            playerCard.classList.add('playing');
             iconPlay.style.display = 'none';
             iconPause.style.display = 'block';
         } else {
             audio.pause();
+            playerCard.classList.remove('playing');
             iconPlay.style.display = 'block';
             iconPause.style.display = 'none';
         }
     });
 
-    volSlider.addEventListener('input', (e) => {
-        audio.volume = e.target.value / 100;
-    });
-
+    document.getElementById('volume').addEventListener('input', (e) => { audio.volume = e.target.value / 100; });
     audio.addEventListener('ended', () => setTimeout(() => audio.play(), 3000));
     audio.addEventListener('error', () => setTimeout(() => audio.play(), 3000));
 
+    function shareRadio() {
+        const text = encodeURIComponent(`¡Escucha ${CONFIG.nombreRadio} en vivo! 🎶🔥`);
+        window.open(`https://api.whatsapp.com/send?text=${text}%20${window.location.href}`, '_blank');
+    }
+
     async function updateMetadata() {
         try {
-            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${ZENO_ID}?ra=${Date.now()}`);
+            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${CONFIG.zenoId}?ra=${Date.now()}`);
             const data = await res.json();
             
             if (data.title) {
                 const parts = data.title.split(" - ");
-                const artist = parts[0] || NOMBRE_RADIO_DEFAULT;
+                const artist = parts[0] || CONFIG.nombreRadio;
                 const song = parts[1] || "Transmisión en vivo";
                 
                 document.getElementById("artist").textContent = artist;
@@ -201,8 +237,8 @@
                 
                 if (itunesData.results && itunesData.results.length > 0) {
                     const imgUrl = itunesData.results[0].artworkUrl100.replace("100x100", "500x500");
-                    coverEl.style.backgroundImage = `url('${imgUrl}')`;
-                    bgBlurEl.style.backgroundImage = `url('${imgUrl}')`;
+                    document.getElementById('cover').style.backgroundImage = `url('${imgUrl}')`;
+                    document.getElementById('bg-blur').style.backgroundImage = `url('${imgUrl}')`;
                 }
             }
             document.getElementById("listeners").textContent = data.listeners_current || 0;
