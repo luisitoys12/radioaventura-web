@@ -3,135 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reproductor Fijo Web</title>
+<title>Sticky Player iHeartRadio Style - Radio Aventura MX</title>
 <style>
-    /* ===== CONFIGURACIÓN DE COLOR AQUÍ ===== */
+    /* ===== ESTILOS BASE ===== */
     :root {
         --sticky-brand: #ff3b3b;
+        --sticky-glow: rgba(255, 59, 59, 0.4);
+        --bg-panel: rgba(15, 15, 15, 0.98);
     }
     
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    body {
-        /* Fondo transparente para que funcione bien dentro del Iframe */
-        background: transparent; 
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        overflow: hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+    body { background: transparent; overflow: hidden; color: white; }
+
+    /* Contenedor Principal */
+    .sticky-wrapper {
+        position: fixed; bottom: 0; left: 0; width: 100%; z-index: 99999;
+        display: flex; flex-direction: column; justify-content: flex-end;
     }
 
-    .sticky-radio-player {
-        width: 100%;
-        height: 100vh; /* Ocupa todo el alto del iframe */
-        background: rgba(18, 18, 18, 0.90);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        color: white;
-        border-top: 1px solid rgba(255,255,255,0.1);
+    /* Panel Expandible (Oculto) */
+    .expanded-panel {
+        background: var(--bg-panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        width: 100%; height: 0; overflow: hidden; transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .expanded-panel.open { height: 220px; padding: 20px; }
+
+    .panel-grid { display: flex; width: 100%; max-width: 800px; justify-content: space-around; align-items: center; gap: 20px; }
+    
+    /* Info Extra (Reloj, Locutor, Oyentes) */
+    .info-box { text-align: center; background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 15px; flex: 1; border: 1px solid rgba(255,255,255,0.05); }
+    .info-box span { display: block; font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .info-box strong { font-size: 1.2rem; font-weight: 700; color: var(--sticky-brand); }
+    .clock-text { font-family: monospace; font-size: 1.3rem !important; }
+
+    /* Redes y Peticiones */
+    .social-box { display: flex; flex-direction: column; gap: 10px; flex: 1; align-items: center; }
+    .btn-whatsapp { 
+        background: #25D366; color: white; text-decoration: none; padding: 10px 20px; 
+        border-radius: 30px; font-weight: bold; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: transform 0.2s;
+    }
+    .btn-whatsapp:hover { transform: scale(1.05); }
+    .social-icons { display: flex; gap: 15px; margin-top: 5px; }
+    .social-icons a { background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; display: flex; transition: 0.2s; }
+    .social-icons a:hover { background: var(--sticky-brand); }
+    .social-icons svg { width: 18px; fill: white; }
+
+    /* Barra Inferior Clickeable */
+    .sticky-bar {
+        background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 20px; height: 85px; border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.5); cursor: pointer;
     }
     
-    .sticky-info { display: flex; align-items: center; gap: 15px; width: 30%; min-width: 200px; }
+    .sticky-info { display: flex; align-items: center; gap: 15px; width: 30%; }
     .sticky-cover {
-        width: 55px; height: 55px;
-        border-radius: 8px;
+        width: 55px; height: 55px; border-radius: 50%; /* Disco de vinilo */
         background: url('https://i.imgur.com/0Z8FQ0g.jpg') center/cover;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.1);
+        transition: 0.3s;
     }
+    .playing .sticky-cover { animation: spin 8s linear infinite; border-color: var(--sticky-brand); box-shadow: 0 0 15px var(--sticky-glow); }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
     .sticky-text { display: flex; flex-direction: column; overflow: hidden; }
-    .sticky-song { font-size: 1rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sticky-artist { font-size: 0.85rem; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+    .sticky-song { font-size: 1rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px;}
+    .sticky-artist { font-size: 0.8rem; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
     .sticky-controls { display: flex; align-items: center; justify-content: center; flex-grow: 1; }
     .sticky-play {
-        background: var(--sticky-brand);
-        border: none; width: 50px; height: 50px; border-radius: 50%;
+        background: var(--sticky-brand); border: none; width: 50px; height: 50px; border-radius: 50%;
         cursor: pointer; display: flex; justify-content: center; align-items: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transition: transform 0.2s;
+        box-shadow: 0 5px 15px var(--sticky-glow); transition: 0.2s; z-index: 2;
     }
-    .sticky-play:hover { transform: scale(1.05); }
-    .sticky-play svg { width: 22px; fill: white; }
-    
+    .sticky-play:active { transform: scale(0.95); }
+    .sticky-play svg { width: 20px; fill: white; margin-left: 3px; }
+    .playing .sticky-play svg { margin-left: 0; }
+
     .sticky-tools { display: flex; align-items: center; gap: 15px; width: 30%; justify-content: flex-end; }
-    .sticky-vol { width: 100px; cursor: pointer; accent-color: var(--sticky-brand); }
-    .sticky-badge { border: 1px solid var(--sticky-brand); color: var(--sticky-brand); font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; font-weight: bold; letter-spacing: 1px;}
+    
+    .expand-btn {
+        background: transparent; border: none; cursor: pointer; padding: 10px;
+        transition: transform 0.3s;
+    }
+    .expand-btn svg { width: 24px; fill: #aaa; }
+    .open-state .expand-btn { transform: rotate(180deg); }
 
     @media(max-width: 768px){
-        .sticky-tools { display: none; }
+        .panel-grid { flex-direction: column; height: 100%; overflow-y: auto; padding-top: 20px; justify-content: flex-start; }
+        .expanded-panel.open { height: 350px; }
+        .sticky-tools { width: auto; }
         .sticky-info { width: 60%; }
-        .sticky-controls { justify-content: flex-end; }
         .sticky-cover { width: 45px; height: 45px; }
     }
 </style>
 </head>
 <body>
 
-<div class="sticky-radio-player">
-    <div class="sticky-info">
-        <div class="sticky-cover" id="s-cover"></div>
-        <div class="sticky-text">
-            <span class="sticky-song" id="s-song">Conectando...</span>
-            <span class="sticky-artist" id="s-artist">Cargando Emisora</span>
+<div class="sticky-wrapper" id="player-wrapper">
+    
+    <div class="expanded-panel" id="expand-panel">
+        <div class="panel-grid">
+            <div class="info-box">
+                <span>Locutor en turno</span>
+                <strong id="locutor-nombre">El Wisito</strong>
+            </div>
+            <div class="info-box">
+                <span>Irapuato, Gto.</span>
+                <strong class="clock-text" id="reloj-irapuato">00:00:00</strong>
+            </div>
+            <div class="info-box">
+                <span>Oyentes Conectados</span>
+                <strong id="listeners">0</strong>
+            </div>
+            <div class="social-box">
+                <a href="#" target="_blank" class="btn-whatsapp" id="btn-pedir">
+                    <svg viewBox="0 0 24 24" width="20" fill="white"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+                    Pedir Canción
+                </a>
+                <div class="social-icons">
+                    <a href="#" id="link-fb" target="_blank"><svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="sticky-controls">
-        <button class="sticky-play" id="s-playBtn">
-            <svg id="s-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="s-icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
+    <div class="sticky-bar" onclick="togglePanel()">
+        <div class="sticky-info">
+            <div class="sticky-cover" id="s-cover"></div>
+            <div class="sticky-text">
+                <span class="sticky-song" id="s-song">Conectando...</span>
+                <span class="sticky-artist" id="s-artist">Cargando Emisora</span>
+            </div>
+        </div>
+
+        <div class="sticky-controls">
+            <button class="sticky-play" id="s-playBtn" onclick="togglePlay(event)">
+                <svg id="s-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="s-icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+        </div>
+
+        <div class="sticky-tools">
+            <button class="expand-btn">
+                <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+            </button>
+        </div>
     </div>
 
-    <div class="sticky-tools">
-        <span class="sticky-badge">EN VIVO</span>
-        <svg viewBox="0 0 24 24" width="20" fill="#aaa"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-        <input type="range" class="sticky-vol" id="s-volume" min="0" max="100" value="90">
-    </div>
 </div>
 
 <script>
-    /* ===== CONFIGURACIÓN DEL CLIENTE AQUÍ ===== */
-    const S_STREAM_URL = "https://stream.zeno.fm/7mk2bzwy5x8uv.aac";
-    const S_ZENO_ID = "7mk2bzwy5x8uv";
-    const S_NOMBRE_RADIO_DEFAULT = "Radio Aventura MX";
-    /* ========================================== */
+    /* ===== CONFIGURACIÓN DEL CLIENTE (EDITA ESTO) ===== */
+    const CONFIG = {
+        streamUrl: "https://stream.zeno.fm/7mk2bzwy5x8uv.aac",
+        zenoId: "7mk2bzwy5x8uv",
+        nombreRadio: "Radio Aventura MX",
+        locutorActual: "El Wisito", 
+        whatsapp: "4622461396",
+        facebook: "https://www.facebook.com/radioaventurajoven"
+    };
+    /* ================================================== */
 
-    const s_audio = new Audio(S_STREAM_URL);
+    // Aplicar Configuración a la UI
+    document.getElementById('locutor-nombre').textContent = CONFIG.locutorActual;
+    document.getElementById('link-fb').href = CONFIG.facebook;
+    
+    const wsText = encodeURIComponent(`¡Hola! Estoy escuchando ${CONFIG.nombreRadio} y quiero pedir una canción 🎶`);
+    document.getElementById('btn-pedir').href = `https://wa.me/${CONFIG.whatsapp}?text=${wsText}`;
+
+    // Motor de Audio
+    const s_audio = new Audio(CONFIG.streamUrl);
     s_audio.volume = 0.9;
-    s_audio.preload = "none";
-
-    const playBtn = document.getElementById('s-playBtn');
-    const iconPlay = document.getElementById('s-icon-play');
-    const iconPause = document.getElementById('s-icon-pause');
-
-    playBtn.addEventListener('click', () => {
+    
+    function togglePlay(e) {
+        e.stopPropagation(); // Evita que se abra el panel al dar click en Play
         if (s_audio.paused) {
             s_audio.play();
-            iconPlay.style.display = 'none';
-            iconPause.style.display = 'block';
+            document.getElementById('player-wrapper').classList.add('playing');
+            document.getElementById('s-icon-play').style.display = 'none';
+            document.getElementById('s-icon-pause').style.display = 'block';
         } else {
             s_audio.pause();
-            iconPlay.style.display = 'block';
-            iconPause.style.display = 'none';
+            document.getElementById('player-wrapper').classList.remove('playing');
+            document.getElementById('s-icon-play').style.display = 'block';
+            document.getElementById('s-icon-pause').style.display = 'none';
         }
-    });
+    }
 
-    document.getElementById('s-volume').addEventListener('input', (e) => {
-        s_audio.volume = e.target.value / 100;
-    });
+    // Expandir / Contraer Panel
+    function togglePanel() {
+        const wrapper = document.getElementById('player-wrapper');
+        const panel = document.getElementById('expand-panel');
+        wrapper.classList.toggle('open-state');
+        panel.classList.toggle('open');
+    }
 
+    // Reloj (Hora en México)
+    function updateClock() {
+        const timeOptions = { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        const formatter = new Intl.DateTimeFormat('es-MX', timeOptions);
+        document.getElementById('reloj-irapuato').textContent = formatter.format(new Date());
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Metadatos
     async function updateStickyMeta() {
         try {
-            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${S_ZENO_ID}?ra=${Date.now()}`);
+            const res = await fetch(`https://zenoplay.zenomedia.com/api/zenofm/nowplaying/${CONFIG.zenoId}?ra=${Date.now()}`);
             const data = await res.json();
             if (data.title) {
                 const parts = data.title.split(" - ");
-                const artist = parts[0] || S_NOMBRE_RADIO_DEFAULT;
+                const artist = parts[0] || CONFIG.nombreRadio;
                 const song = parts[1] || "Transmisión en vivo";
-                
                 document.getElementById("s-artist").textContent = artist;
                 document.getElementById("s-song").textContent = song;
 
@@ -139,13 +227,12 @@
                 const itunesRes = await fetch(`https://itunes.apple.com/search?term=${q}&media=music&limit=1`);
                 const itunesData = await itunesRes.json();
                 if (itunesData.results && itunesData.results[0]) {
-                    const imgUrl = itunesData.results[0].artworkUrl100;
-                    document.getElementById("s-cover").style.backgroundImage = `url('${imgUrl}')`;
+                    document.getElementById("s-cover").style.backgroundImage = `url('${itunesData.results[0].artworkUrl100}')`;
                 }
             }
+            document.getElementById("listeners").textContent = data.listeners_current || 0;
         } catch(e) {}
     }
-    
     updateStickyMeta();
     setInterval(updateStickyMeta, 15000);
 </script>
