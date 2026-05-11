@@ -1,1 +1,318 @@
-PLACEHOLDER_INDEX
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Aventura MX — Irapuato</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker" role="marquee" aria-live="polite">
+  <span class="ticker-label">&#9679; EN VIVO</span>
+  <div class="ticker-track"><span id="ticker-text">Radio Aventura MX — Cargando...</span></div>
+</div>
+
+<!-- NAV -->
+<header class="site-header">
+  <nav class="nav container" aria-label="Navegación principal">
+    <a href="#" class="nav-logo" aria-label="Radio Aventura MX">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="18" cy="18" r="6" fill="var(--color-primary)"/>
+        <path d="M18 4 Q26 10 26 18 Q26 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.6"/>
+        <path d="M18 4 Q10 10 10 18 Q10 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.4"/>
+      </svg>
+      <span class="nav-logo-text">Radio<strong>Aventura</strong></span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#programacion">Programación</a></li>
+      <li><a href="#shows">Shows</a></li>
+      <li><a href="#podcasts">Podcasts</a></li>
+      <li><a href="reproductor.html" class="nav-cta">Escuchar en vivo</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="menu-toggle" aria-label="Menú" aria-expanded="false" aria-controls="nav-links">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <button data-theme-toggle aria-label="Cambiar tema" style="background:none;border:none;cursor:pointer;color:var(--color-text-muted);padding:var(--space-2);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow"><span class="live-dot"></span> Transmitiendo en vivo · Irapuato, Gto.</p>
+      <h1 class="hero-title" id="hero-title">RADIO<br><span class="hero-accent">AVENTURA</span><br>MX</h1>
+      <p class="hero-sub">La estación que mueve a Irapuato.<br>Música, entretenimiento y comunidad.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="PLAYPAUSE()" id="hero-play-btn" aria-label="Reproducir Radio Aventura">
+          <svg id="h-ico-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg id="h-ico-stop" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          <span id="h-btn-label">Escuchar ahora</span>
+        </button>
+        <a href="reproductor.html" class="btn-ghost">Reproductor completo</a>
+      </div>
+    </div>
+    <div class="hero-player" role="region" aria-label="Mini reproductor">
+      <div class="player-card">
+        <div class="player-cover-wrap">
+          <img id="cover" src="https://picsum.photos/seed/radio/280/280" alt="Portada actual" class="player-cover" width="280" height="280" loading="lazy">
+          <div class="player-eq" id="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="player-meta">
+          <p class="player-label">Ahora suena</p>
+          <p class="player-artist" id="p-artist">Radio Aventura</p>
+          <p class="player-song" id="p-song">Conectando...</p>
+        </div>
+        <div class="player-controls">
+          <button class="play-btn" onclick="PLAYPAUSE()" id="play-btn" aria-label="Reproducir/Pausar">
+            <svg id="ico-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            <svg id="ico-stop" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <div class="vol-group">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <input type="range" id="vol" min="0" max="100" value="90" aria-label="Volumen" class="vol-slider">
+          </div>
+        </div>
+        <div class="player-waveform" id="waveform" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="player-history" id="history-wrap" style="display:none">
+          <p class="history-label">Historial</p>
+          <ul class="history-list" id="history-list" role="list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWS -->
+<section class="shows" id="shows" aria-labelledby="shows-title">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Nuestros programas</p>
+      <h2 id="shows-title">Shows Destacados</h2>
+    </div>
+    <div class="shows-grid">
+      <article class="show-card" style="--hue:12">
+        <div class="show-thumb" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3 class="show-title">Hit Parade</h3>
+        <p class="show-desc">Los éxitos del momento en un solo programa. Pop, reggaetón y más.</p>
+        <span class="show-badge">Lun – Vie</span>
+      </article>
+      <article class="show-card" style="--hue:200">
+        <div class="show-thumb" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 class="show-title">Noches de Aventura</h3>
+        <p class="show-desc">El mejor ambiente para cerrar el día. Electrónica y urbano.</p>
+        <span class="show-badge">Diario 9pm</span>
+      </article>
+      <article class="show-card" style="--hue:140">
+        <div class="show-thumb" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <h3 class="show-title">Conexión Irapuato</h3>
+        <p class="show-desc">Noticias locales, comunidad y eventos de nuestra ciudad.</p>
+        <span class="show-badge">Sáb 10am</span>
+      </article>
+      <article class="show-card" style="--hue:280">
+        <div class="show-thumb" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3 class="show-title">Talentos GTO</h3>
+        <p class="show-desc">Artistas locales de Guanajuato al aire. Apoya el talento de casa.</p>
+        <span class="show-badge">Dom 6pm</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMACION -->
+<section class="schedule" id="programacion" aria-labelledby="schedule-title">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Horarios</p>
+      <h2 id="schedule-title">Programación de la semana</h2>
+    </div>
+    <div class="schedule-tabs" role="tablist" aria-label="Días de la semana">
+      <button role="tab" aria-selected="true" class="tab active" data-day="lun">Lun</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="mar">Mar</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="mie">Mié</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="jue">Jue</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="vie">Vie</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="sab">Sáb</button>
+      <button role="tab" aria-selected="false" class="tab" data-day="dom">Dom</button>
+    </div>
+    <div class="schedule-table" role="tabpanel">
+      <div class="schedule-row header">
+        <span>Hora</span><span>Programa</span><span>Género</span><span>Estado</span>
+      </div>
+      <div class="schedule-row" id="row-0">
+        <span class="time">06:00</span><span class="prog-name">Buenos Días Aventura</span><span class="badge-genre">Variado</span><span class="badge-status next">Siguiente</span>
+      </div>
+      <div class="schedule-row active" id="row-1">
+        <span class="time">08:00</span><span class="prog-name">Hit Parade Matutino</span><span class="badge-genre">Pop</span><span class="badge-status live">● En vivo</span>
+      </div>
+      <div class="schedule-row" id="row-2">
+        <span class="time">10:00</span><span class="prog-name">Conexión Irapuato</span><span class="badge-genre">Noticias</span><span></span>
+      </div>
+      <div class="schedule-row" id="row-3">
+        <span class="time">12:00</span><span class="prog-name">Mediodía Mix</span><span class="badge-genre">Urbano</span><span></span>
+      </div>
+      <div class="schedule-row" id="row-4">
+        <span class="time">15:00</span><span class="prog-name">La Aventura del Deporte</span><span class="badge-genre">Deportes</span><span></span>
+      </div>
+      <div class="schedule-row" id="row-5">
+        <span class="time">18:00</span><span class="prog-name">Tarde Fiesta</span><span class="badge-genre">Electrónica</span><span></span>
+      </div>
+      <div class="schedule-row" id="row-6">
+        <span class="time">21:00</span><span class="prog-name">Noches de Aventura</span><span class="badge-genre">Variado</span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PODCASTS -->
+<section class="podcasts" id="podcasts" aria-labelledby="podcasts-title">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">A la carta</p>
+      <h2 id="podcasts-title">Episodios recientes</h2>
+    </div>
+    <div class="podcasts-grid">
+      <article class="podcast-card">
+        <div class="podcast-thumb" style="--c:#ff4d1c">01</div>
+        <div class="podcast-info">
+          <p class="podcast-show">Conexión Irapuato</p>
+          <h3 class="podcast-title">Eventos de Mayo en Irapuato</h3>
+          <p class="podcast-meta">28 min · hace 2 días</p>
+        </div>
+        <button class="podcast-play" aria-label="Reproducir episodio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </article>
+      <article class="podcast-card">
+        <div class="podcast-thumb" style="--c:#4f98a3">02</div>
+        <div class="podcast-info">
+          <p class="podcast-show">Talentos GTO</p>
+          <h3 class="podcast-title">Entrevista: Banda local del mes</h3>
+          <p class="podcast-meta">42 min · hace 5 días</p>
+        </div>
+        <button class="podcast-play" aria-label="Reproducir episodio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </article>
+      <article class="podcast-card">
+        <div class="podcast-thumb" style="--c:#fdab43">03</div>
+        <div class="podcast-info">
+          <p class="podcast-show">Hit Parade</p>
+          <h3 class="podcast-title">Top 20 de la semana</h3>
+          <p class="podcast-meta">55 min · hace 1 semana</p>
+        </div>
+        <button class="podcast-play" aria-label="Reproducir episodio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </article>
+      <article class="podcast-card">
+        <div class="podcast-thumb" style="--c:#6daa45">04</div>
+        <div class="podcast-info">
+          <p class="podcast-show">Noches de Aventura</p>
+          <h3 class="podcast-title">Set especial: Verano 2026</h3>
+          <p class="podcast-meta">68 min · hace 1 semana</p>
+        </div>
+        <button class="podcast-play" aria-label="Reproducir episodio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="18" cy="18" r="6" fill="var(--color-primary)"/>
+        <path d="M18 4 Q26 10 26 18 Q26 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.6"/>
+        <path d="M18 4 Q10 10 10 18 Q10 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.4"/>
+      </svg>
+      <div>
+        <p class="footer-name">Radio Aventura MX</p>
+        <p class="footer-tagline">Estación Kusmedios · Irapuato, Gto.</p>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Links de pie de página">
+      <a href="#shows">Shows</a>
+      <a href="#programacion">Programación</a>
+      <a href="#podcasts">Podcasts</a>
+      <a href="reproductor.html">Reproductor</a>
+      <a href="https://estacionkusmedios.org" target="_blank" rel="noopener noreferrer">Estación Kusmedios</a>
+    </nav>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="#" aria-label="TikTok" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.16 8.16 0 0 0 4.77 1.52V6.81a4.85 4.85 0 0 1-1-.12z"/></svg></a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Radio Aventura MX · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<!-- AUDIO -->
+<audio id="audio" preload="none"></audio>
+
+<script src="js/main.js"></script>
+<script>
+  // Theme toggle
+  (function(){
+    const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+    let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+    r.setAttribute('data-theme',d);
+    t&&t.addEventListener('click',()=>{
+      d=d==='dark'?'light':'dark';
+      r.setAttribute('data-theme',d);
+    });
+  })();
+
+  // Nav mobile
+  const menuBtn = document.getElementById('menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if(menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+  }
+
+  // Schedule tabs
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+    });
+  });
+
+  // Podcast play buttons (visual feedback)
+  document.querySelectorAll('.podcast-play').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.podcast-play').forEach(b => b.classList.remove('playing'));
+      btn.classList.toggle('playing');
+    });
+  });
+</script>
+</body>
+</html>
