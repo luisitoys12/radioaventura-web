@@ -1,318 +1,457 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio Aventura MX — Irapuato</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Radio Aventura MX — 107.9 FM</title>
+<meta name="description" content="La radio más aventurera de Irapuato. Música, noticias y entretenimiento 24/7." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(3rem,.5rem + 7vw,8rem);
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;--space-20:5rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--radius-full:9999px;
+  --t:180ms cubic-bezier(.16,1,.3,1);
+  --font-display:"Bebas Neue","Arial Black",sans-serif;
+  --font-body:"Inter","Helvetica Neue",sans-serif;
+  --content-wide:1200px;
+  --color-bg:#f5f4f0;--color-surface:#f9f8f5;--color-surface-2:#fff;
+  --color-surface-offset:#eeede8;--color-surface-dynamic:#e5e3de;
+  --color-divider:#dbd9d3;--color-border:#d0cdc6;
+  --color-text:#18171a;--color-text-muted:#6b6968;--color-text-faint:#aaa8a3;
+  --color-primary:#d93a0f;--color-primary-hover:#b82c07;--color-primary-hl:#f2d5cc;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.08);
+  --shadow-md:0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.14);
+}
+[data-theme="dark"]{
+  --color-bg:#0d0d0f;--color-surface:#131316;--color-surface-2:#18181c;
+  --color-surface-offset:#1c1c20;--color-surface-dynamic:#242428;
+  --color-divider:#2a2a2e;--color-border:#333338;
+  --color-text:#e8e6e0;--color-text-muted:#8a8880;--color-text-faint:#504e4a;
+  --color-primary:#ff4d1c;--color-primary-hover:#e63a0a;--color-primary-hl:rgba(255,77,28,.12);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.25);
+  --shadow-md:0 4px 12px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;scroll-padding-top:80px}
+body{min-height:100dvh;line-height:1.6;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);transition:background .3s,color .3s}
+img,svg{display:block;max-width:100%;height:auto}
+a,button{transition:all var(--t)}
+button{cursor:pointer;background:none;border:none;color:inherit;font:inherit}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+.container{max-width:var(--content-wide);margin-inline:auto;padding-inline:var(--space-6)}
+
+.ticker{background:var(--color-primary);color:#fff;font-size:var(--text-xs);font-weight:700;letter-spacing:.04em;text-transform:uppercase;height:32px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:100}
+.ticker-label{flex-shrink:0;background:rgba(0,0,0,.2);padding:0 var(--space-4);height:100%;display:flex;align-items:center;gap:var(--space-2);white-space:nowrap}
+.ticker-track{flex:1;overflow:hidden;padding-left:var(--space-4)}
+.ticker-track span{display:inline-block;white-space:nowrap;animation:ticker 35s linear infinite}
+@keyframes ticker{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+.site-header{position:sticky;top:0;z-index:90;background:rgba(13,13,15,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border)}
+[data-theme="light"] .site-header{background:rgba(245,244,240,.92)}
+.nav{display:flex;align-items:center;gap:var(--space-6);height:64px}
+.nav-logo{display:flex;align-items:center;gap:var(--space-3);text-decoration:none;color:var(--color-text);flex-shrink:0}
+.nav-logo-text{font-family:var(--font-display);font-size:22px;letter-spacing:.06em;line-height:1}
+.nav-logo-text strong{color:var(--color-primary)}
+.nav-links{display:flex;align-items:center;gap:var(--space-6);list-style:none;margin-left:auto}
+.nav-links a{text-decoration:none;color:var(--color-text-muted);font-size:var(--text-sm);font-weight:500}
+.nav-links a:hover{color:var(--color-text)}
+.nav-live{display:flex;align-items:center;gap:var(--space-2);background:var(--color-primary);color:#fff;padding:var(--space-2) var(--space-4);border-radius:var(--radius-full);font-size:var(--text-sm);font-weight:700;text-decoration:none}
+.nav-live:hover{background:var(--color-primary-hover)}
+.live-dot,.hero-dot,.mini-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1.2s ease-in-out infinite;flex-shrink:0}
+.hero-dot,.mini-dot{background:var(--color-primary)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.theme-btn{color:var(--color-text-muted);padding:var(--space-2);border-radius:var(--radius-md);margin-left:var(--space-2);font-size:18px}
+.theme-btn:hover{color:var(--color-text);background:var(--color-surface-offset)}
+.menu-btn{display:none;color:var(--color-text);padding:var(--space-2);margin-left:var(--space-2)}
+@media(max-width:768px){
+  .menu-btn{display:flex;align-items:center}
+  .nav-links{display:none;position:fixed;inset:96px 0 0 0;background:var(--color-surface);flex-direction:column;gap:0;padding:var(--space-4) 0;border-top:1px solid var(--color-border);z-index:80}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links a{display:block;padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--color-divider)}
+}
+
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:var(--color-bg);padding-block:clamp(var(--space-16),8vw,var(--space-20))}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--color-border) 1px,transparent 1px),linear-gradient(90deg,var(--color-border) 1px,transparent 1px);background-size:50px 50px;opacity:.35;pointer-events:none}
+.hero-glow{position:absolute;top:-10%;left:60%;width:70vw;height:70vh;background:radial-gradient(ellipse at center,rgba(255,77,28,.12) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 360px;gap:var(--space-16);align-items:center}
+.hero-eyebrow{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);font-weight:700;color:var(--color-primary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-4)}
+.hero-title{font-family:var(--font-display);font-size:var(--text-hero);letter-spacing:.03em;line-height:.9;color:var(--color-text);margin-bottom:var(--space-6)}
+.hero-title span{color:var(--color-primary)}
+.hero-sub{font-size:var(--text-lg);color:var(--color-text-muted);max-width:40ch;margin-bottom:var(--space-8);line-height:1.5}
+.hero-actions{display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:center}
+.btn-primary{display:inline-flex;align-items:center;gap:var(--space-3);background:var(--color-primary);color:#fff;font-size:var(--text-sm);font-weight:700;padding:var(--space-3) var(--space-6);border-radius:var(--radius-full);text-decoration:none}
+.btn-primary:hover{background:var(--color-primary-hover);box-shadow:0 0 24px rgba(255,77,28,.35);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-3) var(--space-5);border-radius:var(--radius-full);border:1px solid var(--color-border);text-decoration:none}
+.btn-ghost:hover{color:var(--color-text);border-color:var(--color-text-muted);background:var(--color-surface)}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.player-card{order:-1}}
+
+.player-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-lg)}
+.player-cover-wrap{position:relative;margin-bottom:var(--space-5)}
+.player-cover{width:100%;aspect-ratio:1;border-radius:calc(var(--radius-xl) - var(--space-2));object-fit:cover;background:linear-gradient(135deg,#1a0a04 0%,#3d1106 50%,#1a0a04 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cover-art{width:80%;display:flex;align-items:center;justify-content:center}
+.player-eq{position:absolute;bottom:10px;right:10px;display:flex;gap:3px;align-items:flex-end;background:rgba(0,0,0,.65);border-radius:var(--radius-md);padding:5px 7px}
+.player-eq span{display:block;width:3px;background:var(--color-primary);border-radius:2px;height:4px}
+.player-eq.playing span{animation:eq .7s ease-in-out infinite alternate}
+.player-eq span:nth-child(1){animation-delay:0s}.player-eq span:nth-child(2){animation-delay:.1s}.player-eq span:nth-child(3){animation-delay:.2s}.player-eq span:nth-child(4){animation-delay:.15s}.player-eq span:nth-child(5){animation-delay:.05s}
+@keyframes eq{from{height:4px}to{height:22px}}
+.player-meta{margin-bottom:var(--space-4)}
+.player-label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary);font-weight:700}
+.player-artist{font-family:var(--font-display);font-size:26px;letter-spacing:.04em;color:var(--color-text);line-height:1;margin-top:2px}
+.player-song{font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-waveform{display:flex;gap:3px;align-items:center;height:28px;justify-content:center;margin-bottom:var(--space-3)}
+.player-waveform span{display:block;width:3px;background:var(--color-surface-dynamic);border-radius:2px;height:5px;transition:background .4s}
+.player-waveform.playing span{background:var(--color-primary);animation:wv .6s ease-in-out infinite alternate}
+.player-waveform span:nth-child(odd){animation-delay:.1s}.player-waveform span:nth-child(even){animation-delay:.22s}
+@keyframes wv{from{height:5px}to{height:24px}}
+.player-controls{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-4)}
+.play-btn{width:52px;height:52px;border-radius:50%;background:var(--color-primary);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.play-btn:hover{background:var(--color-primary-hover);box-shadow:0 0 20px rgba(255,77,28,.4);transform:scale(1.05)}
+.vol-group{flex:1;display:flex;align-items:center;gap:var(--space-3)}
+.vol-slider{flex:1;appearance:none;height:4px;border-radius:999px;background:var(--color-surface-dynamic);outline:none;cursor:pointer}
+.vol-slider::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--color-primary)}
+.player-history{margin-top:var(--space-4);border-top:1px solid var(--color-divider);padding-top:var(--space-3)}
+.history-label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);font-weight:700;margin-bottom:var(--space-2)}
+.history-list{list-style:none}
+.history-list li{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider)}
+.history-list li:last-child{border-bottom:none}
+
+section{padding-block:clamp(3rem,8vw,6rem)}
+.section-eyebrow{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--color-primary);margin-bottom:var(--space-2)}
+.section-header{margin-bottom:var(--space-10)}
+.section-header h2{font-family:var(--font-display);font-size:var(--text-2xl);letter-spacing:.04em;color:var(--color-text);line-height:1.05}
+
+.shows{background:var(--color-surface)}
+.shows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:var(--space-5)}
+.show-card{background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);position:relative;overflow:hidden;text-decoration:none;display:block;color:inherit}
+.show-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c,var(--color-primary))}
+.show-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.show-icon{width:48px;height:48px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:var(--space-4);background:rgba(255,77,28,.1)}
+.show-title{font-family:var(--font-display);font-size:var(--text-xl);letter-spacing:.04em;color:var(--color-text);margin-bottom:var(--space-2)}
+.show-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);line-height:1.5}
+.show-badge{display:inline-block;font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--c,var(--color-primary));background:rgba(255,77,28,.12);padding:3px 10px;border-radius:var(--radius-full)}
+
+.schedule{background:var(--color-bg)}
+.tabs{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);border-bottom:1px solid var(--color-border);padding-bottom:var(--space-4)}
+.tab{font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-2) var(--space-4);border-radius:var(--radius-md);border:1px solid transparent}
+.tab:hover{color:var(--color-text);background:var(--color-surface)}
+.tab.active{color:var(--color-primary);background:var(--color-primary-hl);border-color:rgba(255,77,28,.3)}
+.sched-day{display:none}.sched-day.active{display:block}
+.sched-table{border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden}
+.sched-row{display:grid;grid-template-columns:80px 1fr 110px 100px;gap:var(--space-4);padding:var(--space-3) var(--space-5);border-bottom:1px solid var(--color-divider);align-items:center}
+.sched-row:last-child{border-bottom:none}
+.sched-row.head{background:var(--color-surface);font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted)}
+.sched-row.live-row{background:rgba(255,77,28,.06)}
+.sched-time{font-family:var(--font-display);letter-spacing:.06em;color:var(--color-text);font-size:18px}
+.sched-name{font-weight:600;color:var(--color-text)}
+.badge-genre,.badge-live,.badge-next{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--radius-full)}
+.badge-genre{color:var(--color-text-muted);background:var(--color-surface-dynamic)}
+.badge-live{color:var(--color-primary);background:var(--color-primary-hl)}
+.badge-next{color:#6daa45;background:rgba(109,170,69,.12)}
+@media(max-width:600px){.sched-row{grid-template-columns:60px 1fr}.sched-row .badge-genre,.sched-row .badge-live,.sched-row .badge-next{display:none}}
+
+.podcasts{background:var(--color-surface)}
+.podcasts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:var(--space-4)}
+.pod-card{display:flex;align-items:center;gap:var(--space-4);background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)}
+.pod-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.pod-thumb{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;color:#fff;flex-shrink:0;background:var(--c,var(--color-primary))}
+.pod-info{flex:1;min-width:0}
+.pod-show{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary);margin-bottom:2px}
+.pod-title{font-size:var(--text-sm);font-weight:600;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod-meta{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:2px}
+.pod-play{width:40px;height:40px;border-radius:50%;border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pod-play:hover{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+
+.site-footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding-block:var(--space-12)}
+.footer-inner{display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-8);align-items:center}
+.footer-name{font-family:var(--font-display);font-size:20px;letter-spacing:.06em;color:var(--color-text)}
+.footer-tagline{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:2px}
+.footer-links{display:flex;gap:var(--space-6);flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none}
+.footer-links a:hover{color:var(--color-text)}
+.footer-social{display:flex;gap:var(--space-3)}
+.soc-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--color-border);background:transparent;color:var(--color-text-muted);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:15px}
+.soc-btn:hover{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+.footer-copy{font-size:var(--text-xs);color:var(--color-text-faint);grid-column:1/-1;text-align:center;padding-top:var(--space-6);border-top:1px solid var(--color-divider);margin-top:var(--space-6)}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr;text-align:center;gap:var(--space-5)}.footer-social,.footer-links{justify-content:center}}
+
+.mini-player{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-3) var(--space-6);display:flex;align-items:center;gap:var(--space-4);box-shadow:0 -4px 20px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.mini-player.show{transform:translateY(0)}
+.mini-info{flex:1;min-width:0}
+.mini-station{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-primary)}
+.mini-song{font-size:var(--text-sm);color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-play-btn{width:40px;height:40px;border-radius:50%;background:var(--color-primary);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mini-play-btn:hover{background:var(--color-primary-hover)}
+.mini-close{color:var(--color-text-faint);padding:var(--space-2);flex-shrink:0}
+.mini-close:hover{color:var(--color-text)}
+@media(max-width:480px){.mini-player{padding:var(--space-3) var(--space-4)}}
+</style>
 </head>
 <body>
-
-<!-- TICKER -->
-<div class="ticker" role="marquee" aria-live="polite">
-  <span class="ticker-label">&#9679; EN VIVO</span>
-  <div class="ticker-track"><span id="ticker-text">Radio Aventura MX — Cargando...</span></div>
+<div class="ticker">
+  <div class="ticker-label"><span class="live-dot"></span> EN VIVO</div>
+  <div class="ticker-track">
+    <span>Radio Aventura 107.9 FM · La radio más aventurera de Irapuato · Escúchanos en vivo las 24 horas · Síguenos en redes · Próximo programa: La Hora Retro — 8:00 PM</span>
+  </div>
 </div>
 
-<!-- NAV -->
 <header class="site-header">
-  <nav class="nav container" aria-label="Navegación principal">
-    <a href="#" class="nav-logo" aria-label="Radio Aventura MX">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="18" cy="18" r="6" fill="var(--color-primary)"/>
-        <path d="M18 4 Q26 10 26 18 Q26 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.6"/>
-        <path d="M18 4 Q10 10 10 18 Q10 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.4"/>
-      </svg>
-      <span class="nav-logo-text">Radio<strong>Aventura</strong></span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="#programacion">Programación</a></li>
-      <li><a href="#shows">Shows</a></li>
-      <li><a href="#podcasts">Podcasts</a></li>
-      <li><a href="reproductor.html" class="nav-cta">Escuchar en vivo</a></li>
-    </ul>
-    <button class="nav-menu-btn" id="menu-toggle" aria-label="Menú" aria-expanded="false" aria-controls="nav-links">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <button data-theme-toggle aria-label="Cambiar tema" style="background:none;border:none;cursor:pointer;color:var(--color-text-muted);padding:var(--space-2);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-  </nav>
+  <div class="container">
+    <nav class="nav">
+      <a href="#" class="nav-logo">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5" opacity=".2"/>
+          <circle cx="18" cy="18" r="12" fill="var(--color-primary)"/>
+          <circle cx="18" cy="18" r="4" fill="#fff"/>
+        </svg>
+        <span class="nav-logo-text"><strong>RADIO</strong> AVENTURA</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#shows">Shows</a></li>
+        <li><a href="#programacion">Programación</a></li>
+        <li><a href="#podcasts">Podcasts</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#" class="nav-live"><span class="live-dot"></span> 107.9 FM</a></li>
+      </ul>
+      <button class="theme-btn" id="theme-toggle" aria-label="Cambiar tema">🌙</button>
+      <button class="menu-btn" id="menu-btn" aria-label="Abrir menú">☰</button>
+    </nav>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="container hero-inner">
-    <div class="hero-content">
-      <p class="hero-eyebrow"><span class="live-dot"></span> Transmitiendo en vivo · Irapuato, Gto.</p>
-      <h1 class="hero-title" id="hero-title">RADIO<br><span class="hero-accent">AVENTURA</span><br>MX</h1>
-      <p class="hero-sub">La estación que mueve a Irapuato.<br>Música, entretenimiento y comunidad.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="PLAYPAUSE()" id="hero-play-btn" aria-label="Reproducir Radio Aventura">
-          <svg id="h-ico-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-          <svg id="h-ico-stop" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-          <span id="h-btn-label">Escuchar ahora</span>
-        </button>
-        <a href="reproductor.html" class="btn-ghost">Reproductor completo</a>
+<main>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow"><span class="hero-dot"></span> En vivo ahora — 107.9 FM</p>
+        <h1 class="hero-title">RADIO<br><span>AVEN</span><br>TURA</h1>
+        <p class="hero-sub">La radio más aventurera de Irapuato, Guanajuato. Música, entretenimiento y noticias las 24 horas.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="hero-play-btn">▶ Escuchar en vivo</button>
+          <a href="#programacion" class="btn-ghost">Ver programación</a>
+        </div>
       </div>
-    </div>
-    <div class="hero-player" role="region" aria-label="Mini reproductor">
+
       <div class="player-card">
         <div class="player-cover-wrap">
-          <img id="cover" src="https://picsum.photos/seed/radio/280/280" alt="Portada actual" class="player-cover" width="280" height="280" loading="lazy">
-          <div class="player-eq" id="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="player-cover">
+            <svg class="cover-art" viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="90" stroke="rgba(255,77,28,.2)" stroke-width="2"/>
+              <circle cx="100" cy="100" r="60" fill="rgba(255,77,28,.08)" stroke="rgba(255,77,28,.3)" stroke-width="1.5"/>
+              <circle cx="100" cy="100" r="30" fill="rgba(255,77,28,.15)" stroke="rgba(255,77,28,.5)" stroke-width="1.5"/>
+              <circle cx="100" cy="100" r="8" fill="#ff4d1c"/>
+              <text x="100" y="164" text-anchor="middle" fill="rgba(255,77,28,.6)" font-family="'Bebas Neue',sans-serif" font-size="14" letter-spacing="4">107.9 FM</text>
+            </svg>
+          </div>
+          <div class="player-eq" id="player-eq"><span></span><span></span><span></span><span></span><span></span></div>
         </div>
         <div class="player-meta">
-          <p class="player-label">Ahora suena</p>
-          <p class="player-artist" id="p-artist">Radio Aventura</p>
-          <p class="player-song" id="p-song">Conectando...</p>
+          <p class="player-label">🎙️ Al aire ahora</p>
+          <p class="player-artist">La Hora Pico</p>
+          <p class="player-song" id="mini-song-src">Con DJ Aventura — Top 40 en Español</p>
+        </div>
+        <div class="player-waveform" id="player-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
         <div class="player-controls">
-          <button class="play-btn" onclick="PLAYPAUSE()" id="play-btn" aria-label="Reproducir/Pausar">
-            <svg id="ico-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-            <svg id="ico-stop" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-          </button>
+          <button class="play-btn" id="main-play">▶</button>
           <div class="vol-group">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-            <input type="range" id="vol" min="0" max="100" value="90" aria-label="Volumen" class="vol-slider">
+            <span>🔊</span>
+            <input type="range" class="vol-slider" min="0" max="100" value="80">
           </div>
         </div>
-        <div class="player-waveform" id="waveform" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="player-history" id="history-wrap" style="display:none">
-          <p class="history-label">Historial</p>
-          <ul class="history-list" id="history-list" role="list"></ul>
+        <div class="player-history">
+          <p class="history-label">Recién sonó</p>
+          <ul class="history-list">
+            <li>Bad Bunny — Tití Me Preguntó</li>
+            <li>Peso Pluma — Ella Baila Sola</li>
+            <li>Karol G — Oki Doki</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SHOWS -->
-<section class="shows" id="shows" aria-labelledby="shows-title">
+<section class="shows" id="shows">
   <div class="container">
     <div class="section-header">
-      <p class="section-eyebrow">Nuestros programas</p>
-      <h2 id="shows-title">Shows Destacados</h2>
+      <p class="section-eyebrow">Programas</p>
+      <h2>Nuestros Shows</h2>
     </div>
     <div class="shows-grid">
-      <article class="show-card" style="--hue:12">
-        <div class="show-thumb" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        </div>
-        <h3 class="show-title">Hit Parade</h3>
-        <p class="show-desc">Los éxitos del momento en un solo programa. Pop, reggaetón y más.</p>
-        <span class="show-badge">Lun – Vie</span>
-      </article>
-      <article class="show-card" style="--hue:200">
-        <div class="show-thumb" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <h3 class="show-title">Noches de Aventura</h3>
-        <p class="show-desc">El mejor ambiente para cerrar el día. Electrónica y urbano.</p>
-        <span class="show-badge">Diario 9pm</span>
-      </article>
-      <article class="show-card" style="--hue:140">
-        <div class="show-thumb" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-        </div>
-        <h3 class="show-title">Conexión Irapuato</h3>
-        <p class="show-desc">Noticias locales, comunidad y eventos de nuestra ciudad.</p>
-        <span class="show-badge">Sáb 10am</span>
-      </article>
-      <article class="show-card" style="--hue:280">
-        <div class="show-thumb" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
-        <h3 class="show-title">Talentos GTO</h3>
-        <p class="show-desc">Artistas locales de Guanajuato al aire. Apoya el talento de casa.</p>
-        <span class="show-badge">Dom 6pm</span>
-      </article>
+      <a href="#" class="show-card" style="--c:#ff4d1c"><div class="show-icon">🎵</div><h3 class="show-title">La Hora Pico</h3><p class="show-desc">Los mejores éxitos del momento para prender la tarde.</p><span class="show-badge">Top 40</span></a>
+      <a href="#" class="show-card" style="--c:#e8b400"><div class="show-icon">🎸</div><h3 class="show-title">Rock en tu Idioma</h3><p class="show-desc">Rock clásico y alternativo en español, 80s y 90s.</p><span class="show-badge">Rock</span></a>
+      <a href="#" class="show-card" style="--c:#437a22"><div class="show-icon">🌙</div><h3 class="show-title">Noches de Balada</h3><p class="show-desc">Las baladas más románticas para acompañar la noche.</p><span class="show-badge">Romántica</span></a>
+      <a href="#" class="show-card" style="--c:#006494"><div class="show-icon">📻</div><h3 class="show-title">La Hora Retro</h3><p class="show-desc">Un viaje musical al pasado con éxitos de siempre.</p><span class="show-badge">Retro</span></a>
+      <a href="#" class="show-card" style="--c:#7a39bb"><div class="show-icon">🎙️</div><h3 class="show-title">Aventura Urbana</h3><p class="show-desc">Reggaetón, trap y urbano para subir la energía.</p><span class="show-badge">Urbano</span></a>
+      <a href="#" class="show-card" style="--c:#d93a0f"><div class="show-icon">🌅</div><h3 class="show-title">Buenos Días Irapuato</h3><p class="show-desc">Noticias locales, clima y buena música desde temprano.</p><span class="show-badge">Matutino</span></a>
     </div>
   </div>
 </section>
 
-<!-- PROGRAMACION -->
-<section class="schedule" id="programacion" aria-labelledby="schedule-title">
+<section class="schedule" id="programacion">
   <div class="container">
     <div class="section-header">
       <p class="section-eyebrow">Horarios</p>
-      <h2 id="schedule-title">Programación de la semana</h2>
+      <h2>Programación Semanal</h2>
     </div>
-    <div class="schedule-tabs" role="tablist" aria-label="Días de la semana">
-      <button role="tab" aria-selected="true" class="tab active" data-day="lun">Lun</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="mar">Mar</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="mie">Mié</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="jue">Jue</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="vie">Vie</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="sab">Sáb</button>
-      <button role="tab" aria-selected="false" class="tab" data-day="dom">Dom</button>
+    <div class="tabs">
+      <button class="tab active" data-day="lun">Lun</button>
+      <button class="tab" data-day="mar">Mar</button>
+      <button class="tab" data-day="mie">Mié</button>
     </div>
-    <div class="schedule-table" role="tabpanel">
-      <div class="schedule-row header">
-        <span>Hora</span><span>Programa</span><span>Género</span><span>Estado</span>
+
+    <div id="day-lun" class="sched-day active">
+      <div class="sched-table">
+        <div class="sched-row head"><span>Hora</span><span>Programa</span><span>Género</span><span>Estado</span></div>
+        <div class="sched-row"><span class="sched-time">6:00</span><span class="sched-name">Buenos Días Irapuato</span><span class="badge-genre">Matutino</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">9:00</span><span class="sched-name">Rock en tu Idioma</span><span class="badge-genre">Rock</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">12:00</span><span class="sched-name">La Hora Pico</span><span class="badge-genre">Top 40</span><span class="badge-live">En vivo</span></div>
+        <div class="sched-row live-row"><span class="sched-time">15:00</span><span class="sched-name">Aventura Urbana</span><span class="badge-genre">Urbano</span><span class="badge-next">Siguiente</span></div>
       </div>
-      <div class="schedule-row" id="row-0">
-        <span class="time">06:00</span><span class="prog-name">Buenos Días Aventura</span><span class="badge-genre">Variado</span><span class="badge-status next">Siguiente</span>
+    </div>
+
+    <div id="day-mar" class="sched-day">
+      <div class="sched-table">
+        <div class="sched-row head"><span>Hora</span><span>Programa</span><span>Género</span><span>Estado</span></div>
+        <div class="sched-row"><span class="sched-time">6:00</span><span class="sched-name">Buenos Días Irapuato</span><span class="badge-genre">Matutino</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">10:00</span><span class="sched-name">Aventura Urbana</span><span class="badge-genre">Urbano</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">16:00</span><span class="sched-name">Rock en tu Idioma</span><span class="badge-genre">Rock</span><span></span></div>
       </div>
-      <div class="schedule-row active" id="row-1">
-        <span class="time">08:00</span><span class="prog-name">Hit Parade Matutino</span><span class="badge-genre">Pop</span><span class="badge-status live">● En vivo</span>
-      </div>
-      <div class="schedule-row" id="row-2">
-        <span class="time">10:00</span><span class="prog-name">Conexión Irapuato</span><span class="badge-genre">Noticias</span><span></span>
-      </div>
-      <div class="schedule-row" id="row-3">
-        <span class="time">12:00</span><span class="prog-name">Mediodía Mix</span><span class="badge-genre">Urbano</span><span></span>
-      </div>
-      <div class="schedule-row" id="row-4">
-        <span class="time">15:00</span><span class="prog-name">La Aventura del Deporte</span><span class="badge-genre">Deportes</span><span></span>
-      </div>
-      <div class="schedule-row" id="row-5">
-        <span class="time">18:00</span><span class="prog-name">Tarde Fiesta</span><span class="badge-genre">Electrónica</span><span></span>
-      </div>
-      <div class="schedule-row" id="row-6">
-        <span class="time">21:00</span><span class="prog-name">Noches de Aventura</span><span class="badge-genre">Variado</span><span></span>
+    </div>
+
+    <div id="day-mie" class="sched-day">
+      <div class="sched-table">
+        <div class="sched-row head"><span>Hora</span><span>Programa</span><span>Género</span><span>Estado</span></div>
+        <div class="sched-row"><span class="sched-time">6:00</span><span class="sched-name">Buenos Días Irapuato</span><span class="badge-genre">Matutino</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">9:00</span><span class="sched-name">La Hora Pico</span><span class="badge-genre">Top 40</span><span></span></div>
+        <div class="sched-row"><span class="sched-time">19:00</span><span class="sched-name">Rock en tu Idioma</span><span class="badge-genre">Rock</span><span></span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PODCASTS -->
-<section class="podcasts" id="podcasts" aria-labelledby="podcasts-title">
+<section class="podcasts" id="podcasts">
   <div class="container">
     <div class="section-header">
-      <p class="section-eyebrow">A la carta</p>
-      <h2 id="podcasts-title">Episodios recientes</h2>
+      <p class="section-eyebrow">Podcasts</p>
+      <h2>Episodios Recientes</h2>
     </div>
     <div class="podcasts-grid">
-      <article class="podcast-card">
-        <div class="podcast-thumb" style="--c:#ff4d1c">01</div>
-        <div class="podcast-info">
-          <p class="podcast-show">Conexión Irapuato</p>
-          <h3 class="podcast-title">Eventos de Mayo en Irapuato</h3>
-          <p class="podcast-meta">28 min · hace 2 días</p>
-        </div>
-        <button class="podcast-play" aria-label="Reproducir episodio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        </button>
-      </article>
-      <article class="podcast-card">
-        <div class="podcast-thumb" style="--c:#4f98a3">02</div>
-        <div class="podcast-info">
-          <p class="podcast-show">Talentos GTO</p>
-          <h3 class="podcast-title">Entrevista: Banda local del mes</h3>
-          <p class="podcast-meta">42 min · hace 5 días</p>
-        </div>
-        <button class="podcast-play" aria-label="Reproducir episodio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        </button>
-      </article>
-      <article class="podcast-card">
-        <div class="podcast-thumb" style="--c:#fdab43">03</div>
-        <div class="podcast-info">
-          <p class="podcast-show">Hit Parade</p>
-          <h3 class="podcast-title">Top 20 de la semana</h3>
-          <p class="podcast-meta">55 min · hace 1 semana</p>
-        </div>
-        <button class="podcast-play" aria-label="Reproducir episodio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        </button>
-      </article>
-      <article class="podcast-card">
-        <div class="podcast-thumb" style="--c:#6daa45">04</div>
-        <div class="podcast-info">
-          <p class="podcast-show">Noches de Aventura</p>
-          <h3 class="podcast-title">Set especial: Verano 2026</h3>
-          <p class="podcast-meta">68 min · hace 1 semana</p>
-        </div>
-        <button class="podcast-play" aria-label="Reproducir episodio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        </button>
-      </article>
+      <div class="pod-card"><div class="pod-thumb" style="--c:#ff4d1c">🎵</div><div class="pod-info"><p class="pod-show">La Hora Pico</p><p class="pod-title">Top 40 — Semana del 11 de mayo</p><p class="pod-meta">45 min · hace 2 horas</p></div><button class="pod-play">▶</button></div>
+      <div class="pod-card"><div class="pod-thumb" style="--c:#e8b400">🎸</div><div class="pod-info"><p class="pod-show">Rock en tu Idioma</p><p class="pod-title">Los 100 mejores riffs de todos los tiempos</p><p class="pod-meta">58 min · ayer</p></div><button class="pod-play">▶</button></div>
+      <div class="pod-card"><div class="pod-thumb" style="--c:#437a22">🌙</div><div class="pod-info"><p class="pod-show">Noches de Balada</p><p class="pod-title">José José — Homenaje especial</p><p class="pod-meta">1h 12 min · hace 2 días</p></div><button class="pod-play">▶</button></div>
     </div>
   </div>
 </section>
+</main>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="18" cy="18" r="6" fill="var(--color-primary)"/>
-        <path d="M18 4 Q26 10 26 18 Q26 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.6"/>
-        <path d="M18 4 Q10 10 10 18 Q10 26 18 32" stroke="var(--color-primary)" stroke-width="1.2" fill="none" opacity="0.4"/>
-      </svg>
+<footer class="site-footer" id="contacto">
+  <div class="container">
+    <div class="footer-inner">
       <div>
-        <p class="footer-name">Radio Aventura MX</p>
-        <p class="footer-tagline">Estación Kusmedios · Irapuato, Gto.</p>
+        <p class="footer-name">RADIO AVENTURA</p>
+        <p class="footer-tagline">107.9 FM · Irapuato, Guanajuato</p>
       </div>
+      <nav class="footer-links">
+        <a href="#shows">Shows</a>
+        <a href="#programacion">Programación</a>
+        <a href="#podcasts">Podcasts</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" class="soc-btn" target="_blank" rel="noopener noreferrer">f</a>
+        <a href="#" class="soc-btn" target="_blank" rel="noopener noreferrer">𝕏</a>
+        <a href="#" class="soc-btn" target="_blank" rel="noopener noreferrer">▶</a>
+      </div>
+      <p class="footer-copy">© 2026 Radio Aventura MX · Cush Media</p>
     </div>
-    <nav class="footer-links" aria-label="Links de pie de página">
-      <a href="#shows">Shows</a>
-      <a href="#programacion">Programación</a>
-      <a href="#podcasts">Podcasts</a>
-      <a href="reproductor.html">Reproductor</a>
-      <a href="https://estacionkusmedios.org" target="_blank" rel="noopener noreferrer">Estación Kusmedios</a>
-    </nav>
-    <div class="footer-social">
-      <a href="#" aria-label="Facebook" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-      <a href="#" aria-label="Instagram" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-      <a href="#" aria-label="TikTok" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.16 8.16 0 0 0 4.77 1.52V6.81a4.85 4.85 0 0 1-1-.12z"/></svg></a>
-    </div>
-    <p class="footer-copy">&copy; 2026 Radio Aventura MX · Todos los derechos reservados</p>
   </div>
 </footer>
 
-<!-- AUDIO -->
-<audio id="audio" preload="none"></audio>
+<div class="mini-player" id="mini-player">
+  <span class="mini-dot"></span>
+  <div class="mini-info">
+    <p class="mini-station">Radio Aventura · 107.9 FM</p>
+    <p class="mini-song" id="mini-song">La Hora Pico — Top 40 en Español</p>
+  </div>
+  <button class="mini-play-btn" id="mini-play">▶</button>
+  <button class="mini-close" id="mini-close">✕</button>
+</div>
 
-<script src="js/main.js"></script>
 <script>
-  // Theme toggle
-  (function(){
-    const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
-    let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-    r.setAttribute('data-theme',d);
-    t&&t.addEventListener('click',()=>{
-      d=d==='dark'?'light':'dark';
-      r.setAttribute('data-theme',d);
-    });
-  })();
+(function(){
+  const btn=document.getElementById('theme-toggle');
+  const html=document.documentElement;
+  let d=html.getAttribute('data-theme')||'dark';
+  btn.textContent=d==='dark'?'🌙':'☀️';
+  btn.addEventListener('click',()=>{
+    d=d==='dark'?'light':'dark';
+    html.setAttribute('data-theme',d);
+    btn.textContent=d==='dark'?'🌙':'☀️';
+  });
+})();
 
-  // Nav mobile
-  const menuBtn = document.getElementById('menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  if(menuBtn && navLinks) {
-    menuBtn.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', open);
-    });
+document.getElementById('menu-btn').addEventListener('click',function(){
+  document.getElementById('nav-links').classList.toggle('open');
+});
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.sched-day').forEach(d=>d.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('day-'+tab.dataset.day).classList.add('active');
+  });
+});
+
+let playing=false;
+function setPlaying(v){
+  const eq=document.getElementById('player-eq');
+  const wave=document.getElementById('player-wave');
+  const mini=document.getElementById('mini-player');
+  const main=document.getElementById('main-play');
+  const hero=document.getElementById('hero-play-btn');
+  const miniBtn=document.getElementById('mini-play');
+  if(v){
+    eq.classList.add('playing');
+    wave.classList.add('playing');
+    mini.classList.add('show');
+    main.textContent='❚❚';
+    hero.textContent='❚❚ Pausar';
+    miniBtn.textContent='❚❚';
+  }else{
+    eq.classList.remove('playing');
+    wave.classList.remove('playing');
+    main.textContent='▶';
+    hero.textContent='▶ Escuchar en vivo';
+    miniBtn.textContent='▶';
   }
-
-  // Schedule tabs
-  document.querySelectorAll('.tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-    });
-  });
-
-  // Podcast play buttons (visual feedback)
-  document.querySelectorAll('.podcast-play').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.podcast-play').forEach(b => b.classList.remove('playing'));
-      btn.classList.toggle('playing');
-    });
-  });
+}
+function togglePlay(){playing=!playing;setPlaying(playing)}
+document.getElementById('main-play').addEventListener('click',togglePlay);
+document.getElementById('hero-play-btn').addEventListener('click',togglePlay);
+document.getElementById('mini-play').addEventListener('click',togglePlay);
+document.getElementById('mini-close').addEventListener('click',()=>{document.getElementById('mini-player').classList.remove('show');playing=false;setPlaying(false);});
 </script>
 </body>
 </html>
