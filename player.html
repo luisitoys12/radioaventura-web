@@ -1,1 +1,74 @@
-PLACEHOLDER_PLAYER
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Radio Aventura MX — Reproductor</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0a0a0c" />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* Ajustes propios de la ventana emergente: sin header ni scroll, todo centrado */
+  body{display:flex;align-items:center;justify-content:center;min-height:100dvh}
+  .player-hero{min-height:100dvh;padding-block:var(--space-8)}
+  .hero-title{font-size:clamp(2rem,10vw,3rem)}
+  .cd-wrap{width:min(220px,55vw)}
+</style>
+</head>
+<body>
+
+<section class="player-hero">
+  <div class="hero-bg"><img src="img/default.jpg" alt="" data-hero-bg-img /></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">
+      <span class="live-dot"></span>
+      <span data-cfg-freq>107.9 FM</span> · <span data-cfg-city>Irapuato, Guanajuato</span>
+    </p>
+    <h1 class="hero-title">RADIO<br><span>AVEN</span>TURA</h1>
+
+    <div class="cd-wrap">
+      <div class="cd-ring"></div>
+      <div class="cd-art" data-cd-art>
+        <img src="img/default.jpg" alt="Portada" data-cd-img />
+        <div class="cd-hole"></div>
+      </div>
+    </div>
+
+    <div class="now-playing">
+      <p class="np-label">Al aire ahora</p>
+      <p class="np-artist" data-np-artist>Radio Aventura MX</p>
+      <p class="np-song" data-np-song>En vivo las 24 horas</p>
+    </div>
+
+    <div class="player-controls">
+      <div class="vol-group">
+        <svg class="vol-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg>
+        <input type="range" class="vol-slider" data-volume min="0" max="100" value="80" aria-label="Volumen" />
+      </div>
+
+      <button class="play-btn" data-play-btn aria-label="Reproducir en vivo">
+        <span class="icon-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="icon-pause"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></span>
+        <span class="icon-loading"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9" stroke-opacity=".25"/><path d="M21 12a9 9 0 00-9-9"/></svg></span>
+      </button>
+
+      <div style="width:110px" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-eq" data-hero-eq aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-social" data-social-links style="margin-top:var(--space-8);justify-content:center"></div>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script src="js/player.js"></script>
+</body>
+</html>
