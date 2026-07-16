@@ -10,7 +10,7 @@ window.RA_CONFIG = {
   // ---- LIVE365 ------------------------------------------------
   // Tu ID de estación en Live365 (lo encuentras en Dashboard > Listen).
   // Ejemplo real de Live365: "a12345"
-  LIVE365_STATION_ID: "TU_ID_DE_LIVE365",
+  LIVE365_STATION_ID: "a55385",
 
   // URL directa del stream MP3 de Live365 (se arma sola con el ID de arriba,
   // normalmente NO necesitas tocar esta línea).
